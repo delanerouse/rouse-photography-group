@@ -2,267 +2,798 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rouse Photography Group | Corporate Headshots Nationwide</title>
-  <meta name="description" content="America's premier corporate headshot studio. On-site photography in 35+ cities for law firms, corporations, government agencies, and Fortune 500 companies." />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assignment Submission | Rouse Photography Group</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --teal:       #0e7c7b;
+      --teal-dark:  #085c5b;
+      --teal-light: #e6f4f4;
+      --teal-mid:   #b2d8d8;
+      --white:      #ffffff;
+      --off-white:  #f7fafa;
+      --text:       #1a2e2e;
+      --muted:      #5a7575;
+      --border:     #c4dada;
+      --error:      #c0392b;
+      --success:    #1a7a4a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--teal-dark);
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-mark span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -1px;
+    }
+    .header-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: white;
+      letter-spacing: 0.02em;
+    }
+    .header-text p {
+      font-size: 12px;
+      color: var(--teal-mid);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* HERO BAND */
+    .hero {
+      background: var(--teal);
+      padding: 40px 40px 36px;
+      border-bottom: 3px solid var(--teal-dark);
+    }
+    .hero h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.1;
+    }
+    .hero p {
+      margin-top: 10px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      max-width: 560px;
+      line-height: 1.6;
+    }
+
+    /* NAMING CONVENTION */
+    .naming-banner {
+      background: var(--teal-dark);
+      margin: 32px 40px 0;
+      padding: 22px 28px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(14,124,123,0.12);
+    }
+    .naming-banner h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .naming-example {
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-size: 13px;
+      background: rgba(0,0,0,0.25);
+      color: var(--teal-mid);
+      padding: 10px 16px;
+      border-radius: 5px;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .naming-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      margin-bottom: 16px;
+    }
+    .naming-legend span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+    }
+    .naming-legend strong { color: var(--teal-mid); }
+    .folder-preview-wrap {
+      background: rgba(0,0,0,0.2);
+      border-radius: 6px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .folder-preview-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 4px;
+    }
+    #folderNameDisplay {
+      font-family: 'DM Mono', 'Courier New', monospace;
+      font-size: 15px;
+      color: white;
+      letter-spacing: 0.05em;
+      word-break: break-all;
+    }
+    #folderNameDisplay.placeholder { color: rgba(255,255,255,0.3); font-style: italic; font-size: 13px; }
+    .copy-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { background: #0a9594; }
+    .copy-btn.copied { background: var(--success); }
+
+    /* DROPBOX BANNER */
+    .dropbox-banner {
+      background: white;
+      border-left: 4px solid var(--teal);
+      margin: 32px 40px 0;
+      padding: 18px 24px;
+      border-radius: 0 6px 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 8px rgba(14,124,123,0.08);
+    }
+    .dropbox-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--teal-light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .dropbox-icon svg { width: 22px; height: 22px; }
+    .dropbox-banner-text p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .dropbox-banner-text a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--teal-dark);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .dropbox-banner-text a:hover { text-decoration: underline; }
+
+    /* FORM CONTAINER */
+    .form-wrap {
+      max-width: 760px;
+      margin: 32px 40px 60px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 16px rgba(14,124,123,0.08);
+      overflow: hidden;
+    }
+
+    .form-section {
+      padding: 32px 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .field-row.single { grid-template-columns: 1fr; }
+    .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    label .req { color: var(--teal); margin-left: 2px; }
+
+    input, select, textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(14,124,123,0.12);
+      background: white;
+    }
+    input::placeholder, textarea::placeholder { color: #9ab5b5; }
+
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230e7c7b' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    .other-market {
+      display: none;
+      margin-top: 12px;
+    }
+    .other-market.visible { display: flex; flex-direction: column; gap: 6px; }
+
+    /* SUBMIT */
+    .submit-wrap {
+      padding: 28px 36px;
+      background: var(--teal-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .submit-note {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    button[type="submit"] {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      background: var(--teal-dark);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 13px 32px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    button[type="submit"]:hover { background: #064d4d; }
+    button[type="submit"]:active { transform: scale(0.98); }
+
+    /* SUCCESS STATE */
+    .success-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 40px;
+      text-align: center;
+      gap: 16px;
+    }
+    .success-screen.visible { display: flex; }
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .success-icon svg { width: 32px; height: 32px; stroke: var(--teal-dark); }
+    .success-screen h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      color: var(--teal-dark);
+    }
+    .success-screen p { font-size: 15px; color: var(--muted); max-width: 400px; line-height: 1.6; }
+
+    /* VALIDATION */
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      display: none;
+    }
+    .field.invalid input,
+    .field.invalid select,
+    .field.invalid textarea {
+      border-color: var(--error);
+    }
+    .field.invalid .field-error { display: block; }
+
+    @media (max-width: 620px) {
+      header, .hero, .dropbox-banner, .form-wrap { margin-left: 16px; margin-right: 16px; }
+      .form-wrap { margin-left: 0; margin-right: 0; border-radius: 0; }
+      .form-section { padding: 24px 20px; }
+      .field-row, .field-row.triple { grid-template-columns: 1fr; }
+      .submit-wrap { flex-direction: column; align-items: stretch; }
+      button[type="submit"] { text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">
-    R(O)USE
-    <span>Photography Group</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="for-companies.html">For Companies</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="about.html">About Us</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
-  </ul>
-  <div class="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
+<header>
+  <div class="logo-mark"><span>R</span></div>
+  <div class="header-text">
+    <h1>Rouse Photography Group</h1>
+    <p>Photographer Network Portal</p>
   </div>
-</nav>
+</header>
 
-<div class="mobile-menu">
-  <a href="index.html">Home</a>
-  <a href="for-companies.html">For Companies</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="about.html">About Us</a>
-  <a href="contact.html">Contact</a>
-  <a href="contact.html">Get a Quote</a>
+<div class="hero">
+  <h2>Assignment Submission</h2>
+  <p>Complete this form after every assignment. Upload all final files to the Dropbox folder below before submitting.</p>
 </div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <span class="eyebrow">Corporate Headshots · Nationwide</span>
-    <h1 class="hero-title">
-      Portraits that<br>
-      command<br>
-      <em>respect.</em>
-    </h1>
-    <p class="hero-subtitle">
-      We work with organizations that need more than strong portraits — they need a partner who understands logistics, brand consistency, and how to create a smooth experience for busy professionals.
-    </p>
-    <div class="hero-actions">
-      <a href="contact.html" class="btn btn-primary">Request a Quote</a>
-      <a href="for-companies.html" class="btn btn-outline">For Companies</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">185K+</div>
-        <div class="stat-label">Career portraits</div>
-      </div>
-      <div>
-        <div class="stat-num">35+</div>
-        <div class="stat-label">Cities served</div>
-      </div>
-      <div>
-        <div class="stat-num">27</div>
-        <div class="stat-label">Years in business</div>
-      </div>
-    </div>
+<!-- Naming Convention -->
+<div class="naming-banner" id="namingBanner">
+  <h3>Folder Naming Convention</h3>
+  <div class="naming-example">260514_Pepsi_NYC_DBR_12</div>
+  <div class="naming-legend">
+    <span><strong>260514</strong> = Date (YYMMDD)</span>
+    <span><strong>Pepsi</strong> = Client name</span>
+    <span><strong>NYC</strong> = Market abbreviation</span>
+    <span><strong>DBR</strong> = Photographer initials</span>
+    <span><strong>12</strong> = Number of files being delivered</span>
   </div>
 
-  <div class="hero-visual">
-    <div class="hero-mosaic">
-      <div class="mosaic-cell" style="background: linear-gradient(160deg,#1c1c1c,#2a2520);"></div>
-      <div class="mosaic-cell" style="background: linear-gradient(160deg,#222,#1a1a1a);"></div>
-      <div class="mosaic-cell" style="background: linear-gradient(160deg,#2a2520,#1c1c1c);"></div>
-      <div class="mosaic-cell" style="background: linear-gradient(160deg,#1a1a1a,#222);"></div>
-      <div class="mosaic-cell" style="background: linear-gradient(160deg,#252520,#1c1c1c);"></div>
-      <div class="mosaic-cell" style="background: linear-gradient(160deg,#1c1c1c,#252520);"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;">
-      <div style="text-align:center;padding:2rem;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,10vw,9rem);font-weight:300;color:rgba(168,133,74,0.25);line-height:1;letter-spacing:-0.04em;">R</div>
-        <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:0.5rem;">Est. 1997</div>
-      </div>
-    </div>
+  <div style="margin-top:24px; background: #b45309; border-radius:6px; padding: 10px 16px; display:flex; align-items:center; gap:10px;">
+    <span style="font-size:20px;">⚠️</span>
+    <span style="font-size:13px; font-weight:600; color:white; letter-spacing:0.04em;">FILE NAMING IS REQUIRED. Incorrectly named files will be returned.</span>
   </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>Traditional Portraits</span><span class="dot">·</span>
-    <span>Group Sessions</span><span class="dot">·</span>
-    <span>Colleges &amp; Universities</span><span class="dot">·</span>
-    <span>Expos &amp; Trade Shows</span><span class="dot">·</span>
-    <span>Government &amp; Military</span><span class="dot">·</span>
-    <span>Associations</span><span class="dot">·</span>
-    <span>Multi-Site Programs</span><span class="dot">·</span>
-    <span>Law Firms</span><span class="dot">·</span>
-    <span>Engineering Firms</span><span class="dot">·</span>
-    <span>Financial Services</span><span class="dot">·</span>
-    <!-- duplicate for seamless loop -->
-    <span>Traditional Portraits</span><span class="dot">·</span>
-    <span>Group Sessions</span><span class="dot">·</span>
-    <span>Colleges &amp; Universities</span><span class="dot">·</span>
-    <span>Expos &amp; Trade Shows</span><span class="dot">·</span>
-    <span>Government &amp; Military</span><span class="dot">·</span>
-    <span>Associations</span><span class="dot">·</span>
-    <span>Multi-Site Programs</span><span class="dot">·</span>
-    <span>Law Firms</span><span class="dot">·</span>
-    <span>Engineering Firms</span><span class="dot">·</span>
-    <span>Financial Services</span><span class="dot">·</span>
+  <h3 style="margin-top:14px;">File Naming Convention</h3>
+  <div class="naming-example">Doe_Jane_0001.jpg</div>
+  <div class="naming-legend">
+    <span><strong>Doe</strong> = Subject's last name</span>
+    <span><strong>Jane</strong> = Subject's first name</span>
+    <span><strong>0001</strong> = Sequence number, starting at 0001</span>
   </div>
 </div>
 
-<!-- HOW WE HELP -->
-<section class="section-pad">
-  <div class="container">
-    <div class="how-grid">
-      <div class="how-text fade-up">
-        <span class="eyebrow">What We Do</span>
-        <h2 class="section-title">We bring the studio<br>to <em>you.</em></h2>
-        <div class="gold-rule"></div>
-        <p>Whether photographing leadership teams, corporate staff, conference attendees, or multi-office groups, we provide a process that keeps your project organized from first conversation through final delivery.</p>
-        <p>With portable lighting, backgrounds, and a laptop, we produce studio-quality images at your location — with the least disruption to your team's time.</p>
-        <a href="for-companies.html" class="btn btn-primary" style="margin-top:1.5rem;">See All Services</a>
-      </div>
-      <div class="service-list fade-up">
-        <div class="service-item">
-          <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/></svg>
-          <h4>Individual Sessions</h4>
-          <p>Studio-quality on-location portraits for executives and professionals.</p>
+<!-- FORM -->
+<div class="form-wrap" id="formWrap">
+
+  <form id="assignmentForm" novalidate>
+
+    <!-- SECTION 1: Photographer -->
+    <div class="form-section">
+      <div class="section-label">01 &mdash; Photographer Info</div>
+      <div class="field-row">
+        <div class="field" id="f-name">
+          <label for="name">Full Name <span class="req">*</span></label>
+          <input type="text" id="name" name="name" placeholder="Jane Smith" autocomplete="name"/>
+          <span class="field-error">Please enter your name.</span>
         </div>
-        <div class="service-item">
-          <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
-          <h4>Group Portraits</h4>
-          <p>Fast, efficient sessions for teams of any size — minimal time, maximum results.</p>
-        </div>
-        <div class="service-item">
-          <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg>
-          <h4>Multi-Site Programs</h4>
-          <p>Coordinated photography across regional, national, or international offices.</p>
-        </div>
-        <div class="service-item">
-          <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"/></svg>
-          <h4>Government &amp; Military</h4>
-          <p>Cleared, professional teams ready for sensitive environments and secure facilities.</p>
-        </div>
-        <div class="service-item">
-          <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
-          <h4>Colleges &amp; Universities</h4>
-          <p>Department-by-department scheduling across campuses, coordinated and efficient.</p>
-        </div>
-        <div class="service-item">
-          <svg class="service-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605"/></svg>
-          <h4>Expos &amp; Trade Shows</h4>
-          <p>Premium photography experience on location. You get traffic, attention, and leads.</p>
+        <div class="field" id="f-email">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input type="email" id="email" name="email" placeholder="jane@email.com" autocomplete="email"/>
+          <span class="field-error">Please enter a valid email.</span>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- CITIES -->
-<section class="cities-section section-pad-sm">
-  <div class="container">
-    <span class="eyebrow fade-up">Where We Work</span>
-    <h2 class="section-title fade-up">35+ cities.<br>One standard of excellence.</h2>
-    <p class="cities-list fade-up">
-      Atlanta <span>·</span> Austin <span>·</span> Baltimore <span>·</span> Boston <span>·</span> Charlotte <span>·</span> Chicago <span>·</span> Columbus <span>·</span> Dallas <span>·</span> Denver <span>·</span> Detroit <span>·</span> Houston <span>·</span> Indianapolis <span>·</span> Jacksonville <span>·</span> Las Vegas <span>·</span> Los Angeles <span>·</span> Louisville <span>·</span> Memphis <span>·</span> Miami / Fort Lauderdale <span>·</span> Minneapolis <span>·</span> Nashville <span>·</span> New Orleans <span>·</span> New York / New Jersey <span>·</span> Orlando <span>·</span> Philadelphia <span>·</span> Phoenix <span>·</span> Portland <span>·</span> Richmond <span>·</span> San Antonio <span>·</span> San Diego <span>·</span> San Francisco <span>·</span> San Jose <span>·</span> Seattle <span>·</span> Tampa <span>·</span> Washington DC
-    </p>
-  </div>
-</section>
+    <!-- SECTION 2: Assignment Details -->
+    <div class="form-section">
+      <div class="section-label">02 &mdash; Assignment Details</div>
 
-<!-- PROMISE -->
-<section class="promise-section section-pad">
-  <div class="container">
-    <div class="promise-inner">
-      <div class="fade-up">
-        <span class="eyebrow promise-label">Our Promise</span>
-        <h2 class="section-title">The job isn't done until<br>you love your photos.</h2>
-        <div class="gold-rule"></div>
-        <p>We believe so deeply in our photographers that if you're not happy with the results, you don't pay. So what's the harm in trying a new way to achieve great business portraits?</p>
-        <p>The right professional corporate headshot will establish your offline and online presence — your professional brand, essentially. We capture your most natural self: confident, relaxed, and in control of your career.</p>
-        <a href="contact.html" class="btn btn-gold" style="margin-top:1.5rem;">Start a Conversation</a>
+      <div class="field-row">
+        <div class="field" id="f-market">
+          <label for="market">Market <span class="req">*</span></label>
+          <select id="market" name="market" onchange="handleMarket(this)">
+            <option value="">Select a market...</option>
+            <optgroup label="United States">
+              <option>Atlanta</option>
+              <option>Austin</option>
+              <option>Baltimore</option>
+              <option>Boston</option>
+              <option>Charlotte</option>
+              <option>Chicago</option>
+              <option>Columbus, OH</option>
+              <option>Dallas</option>
+              <option>Denver</option>
+              <option>Detroit</option>
+              <option>Greensboro</option>
+              <option>Houston</option>
+              <option>Indianapolis</option>
+              <option>Jacksonville, FL</option>
+              <option>Las Vegas</option>
+              <option>Los Angeles</option>
+              <option>Louisville</option>
+              <option>Memphis</option>
+              <option>Miami</option>
+              <option>Nashville</option>
+              <option>New Orleans</option>
+              <option>New York</option>
+              <option>Orlando</option>
+              <option>Philadelphia</option>
+              <option>Phoenix</option>
+              <option>Portland</option>
+              <option>Raleigh, NC</option>
+              <option>Richmond, VA</option>
+              <option>San Antonio</option>
+              <option>San Diego</option>
+              <option>San Francisco</option>
+              <option>San Jose</option>
+              <option>Seattle</option>
+              <option>Tampa</option>
+              <option>Washington, DC</option>
+            </optgroup>
+            <optgroup label="International">
+              <option>Athens, GRC</option>
+              <option>Barcelona, ESP</option>
+              <option>Beijing, CHN</option>
+              <option>Berlin, DEU</option>
+              <option>Dubai, UAE</option>
+              <option>Madrid, ESP</option>
+              <option>Melbourne, AUS</option>
+              <option>Montreal, CAN</option>
+              <option>Ottawa, CAN</option>
+              <option>Sao Paulo, BRA</option>
+              <option>Sydney, AUS</option>
+              <option>Tokyo, JPN</option>
+              <option>Toronto, CAN</option>
+              <option>Vancouver, CAN</option>
+            </optgroup>
+            <option value="other">Other (specify below)</option>
+          </select>
+          <span class="field-error">Please select a market.</span>
+        </div>
+        <div class="field" id="f-shoot-date">
+          <label for="shootDate">Assignment Date <span class="req">*</span></label>
+          <input type="date" id="shootDate" name="shootDate"/>
+          <span class="field-error">Please enter the assignment date.</span>
+        </div>
       </div>
-      <div class="promise-quote fade-up">
-        "It doesn't matter how bad your old photo is — we can guarantee we will create a portrait you love."
-        <div style="margin-top:1.5rem;font-family:'DM Sans',sans-serif;font-style:normal;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);">— Delane Rouse, Founder</div>
+
+      <div class="other-market" id="otherMarketWrap">
+        <label for="otherMarket">Specify Market <span class="req">*</span></label>
+        <input type="text" id="otherMarket" name="otherMarket" placeholder="City, State / Country"/>
+        <span class="field-error" id="otherMarketError">Please specify the market.</span>
+      </div>
+
+      <div class="field-row single" style="margin-top:20px;">
+        <div class="field" id="f-client">
+          <label for="client">Client Name <span class="req">*</span></label>
+          <input type="text" id="client" name="client" placeholder="Company or individual name"/>
+          <span class="field-error">Please enter the client name.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 3: Deliverables -->
+    <div class="form-section">
+      <div class="section-label">03 &mdash; Deliverables</div>
+
+      <div class="field-row">
+        <div class="field" id="f-people">
+          <label for="people"># People Photographed <span class="req">*</span></label>
+          <input type="number" id="people" name="people" min="1" placeholder="e.g. 12"/>
+          <span class="field-error">Required.</span>
+        </div>
+        <div class="field" id="f-photos">
+          <label for="photos"># Files Being Uploaded <span class="req">*</span></label>
+          <input type="number" id="photos" name="photos" min="1" placeholder="e.g. 24"/>
+          <span class="field-error">Required.</span>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- CLIENTS -->
-<section class="clients-section section-pad">
-  <div class="container">
-    <span class="eyebrow fade-up">Trusted By</span>
-    <h2 class="section-title fade-up">Companies you know.</h2>
-    <div class="clients-grid fade-up">
-      <div class="client-cell">Freddie Mac</div>
-      <div class="client-cell">C-SPAN</div>
-      <div class="client-cell">Merrill Lynch</div>
-      <div class="client-cell">Deloitte</div>
-      <div class="client-cell">Audi</div>
-      <div class="client-cell">Holland &amp; Knight</div>
-      <div class="client-cell">Proskauer</div>
-      <div class="client-cell">Nike</div>
-      <div class="client-cell">BP</div>
-      <div class="client-cell">Zillow</div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BAND -->
-<section class="cta-band">
-  <div class="container fade-up">
-    <h2>Ready to elevate your brand?</h2>
-    <p>Schedule a free consultation. We'll learn your needs and build a plan that works for your timeline and budget.</p>
-    <a href="contact.html" class="btn btn-white">Request a Quote</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        <div class="footer-brand">R(O)USE Photography Group</div>
-        <p class="footer-desc">America's premier corporate headshot studio. On-site photography for the organizations that set the standard.</p>
-        <p class="footer-contact-line">4501 Ford Avenue, Suite 107</p>
-        <p class="footer-contact-line">Alexandria, Virginia 22302</p>
-        <p class="footer-contact-line" style="margin-top:0.5rem;"><a href="tel:2022573918">202.257.3918</a></p>
-        <p class="footer-contact-line"><a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a></p>
-      </div>
-      <div class="footer-col">
-        <h5>Navigate</h5>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="for-companies.html">For Companies</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Services</h5>
-        <ul>
-          <li><a href="for-companies.html">Corporate Programs</a></li>
-          <li><a href="for-companies.html">Government &amp; Military</a></li>
-          <li><a href="for-companies.html">Trade Shows &amp; Expos</a></li>
-          <li><a href="for-companies.html">Multi-Site Programs</a></li>
-          <li><a href="contact.html">Get a Quote</a></li>
-        </ul>
+    <!-- SECTION 4: Notes -->
+    <div class="form-section">
+      <div class="section-label">04 &mdash; Notes for Post-Production</div>
+      <div class="field">
+        <label for="notes">Notes for Post-Production</label>
+        <textarea id="notes" name="notes" placeholder="Anything out of the ordinary, client requests, access issues, reshoots needed, etc."></textarea>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2025 Rouse Photography Group, LLC. All rights reserved.</span>
-      <span>Washington DC · Alexandria, VA</span>
+
+    <!-- SECTION 5: Folder Name -->
+    <div class="form-section" style="background: var(--teal-dark); padding: 28px 36px;">
+      <div class="section-label" style="color: var(--teal-mid);">05 &mdash; Your Dropbox Folder Name</div>
+      <p style="font-size:13px; color: rgba(255,255,255,0.7); line-height:1.5; margin-bottom:16px;">Copy the folder name below, then open Dropbox to create the folder and upload your files.</p>
+      <div class="folder-preview-wrap">
+        <div>
+          <div class="folder-preview-label">Folder name</div>
+          <div id="folderNameDisplay" class="placeholder">Complete the form above to generate</div>
+        </div>
+        <button type="button" class="copy-btn" id="copyBtn" onclick="copyFolderName()" style="display:none;">Copy</button>
+      </div>
+
+      <!-- Dropbox link, now inside the bottom block -->
+      <div style="margin-top:20px; background: white; border-radius:6px; padding: 16px 20px; display:flex; align-items:center; gap:14px;">
+        <div class="dropbox-icon">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 4L16 9.5L8 15L0 9.5L8 4Z" fill="#0e7c7b"/>
+            <path d="M24 4L32 9.5L24 15L16 9.5L24 4Z" fill="#0e7c7b"/>
+            <path d="M0 20.5L8 15L16 20.5L8 26L0 20.5Z" fill="#0e7c7b"/>
+            <path d="M32 20.5L24 15L16 20.5L24 26L32 20.5Z" fill="#0e7c7b"/>
+            <path d="M8 27.2L16 21.7L24 27.2L16 32L8 27.2Z" fill="#085c5b"/>
+          </svg>
+        </div>
+        <div style="flex:1;">
+          <p style="font-size:13px; color: var(--muted); margin-bottom:2px;">Create your folder using the name above, then upload your files</p>
+          <a href="https://www.dropbox.com/scl/fo/x3052nu7l7n2m24b1t6we/AOjIGZfyVgcn3PFtzppvuos?rlkey=3leiljsyi133g1nz30xgazmbn&st=mik6fo8w&dl=0" target="_blank" rel="noopener" style="font-size:14px; font-weight:500; color: var(--teal-dark); text-decoration:none;">
+            Open Dropbox Upload Folder →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <p class="submit-note">Files uploaded to Dropbox using the folder name above? Submit this form once your upload is complete.</p>
+      <button type="submit">Submit Assignment</button>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h3>Assignment Submitted</h3>
+    <p>Thanks, your submission has been sent to Delane. You'll hear back if anything is needed.</p>
+
+    <div style="margin-top:24px; background: var(--teal-light); border-left: 4px solid var(--teal); padding: 16px 22px; border-radius:0 6px 6px 0; max-width:460px; text-align:left;">
+      <p style="font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color: var(--teal-dark); margin-bottom:6px;">One more thing</p>
+      <p style="font-size:14px; color: var(--text); line-height:1.5;">Please submit your invoice via email to <a href="mailto:headshots@bill.com" style="color: var(--teal-dark); font-weight:500; text-decoration:none;">headshots@bill.com</a></p>
     </div>
   </div>
-</footer>
 
-<script src="main.js"></script>
+</div>
+
+<script>
+  // --- MARKET ABBREVIATIONS ---
+  const marketAbbr = {
+    // US
+    'Atlanta': 'ATL', 'Austin': 'AUS', 'Baltimore': 'BWI', 'Boston': 'BOS',
+    'Charlotte': 'CLT', 'Chicago': 'CHI', 'Columbus, OH': 'CMH',
+    'Dallas': 'DAL', 'Denver': 'DEN', 'Detroit': 'DTW',
+    'Greensboro': 'GSO', 'Houston': 'HOU', 'Indianapolis': 'IND',
+    'Jacksonville, FL': 'JAX', 'Las Vegas': 'LAS', 'Los Angeles': 'LAX',
+    'Louisville': 'SDF', 'Memphis': 'MEM', 'Miami': 'MIA',
+    'Nashville': 'BNA', 'New Orleans': 'MSY', 'New York': 'NYC',
+    'Orlando': 'MCO', 'Philadelphia': 'PHL', 'Phoenix': 'PHX',
+    'Portland': 'PDX', 'Raleigh, NC': 'RDU', 'Richmond, VA': 'RIC',
+    'San Antonio': 'SAT', 'San Diego': 'SAN', 'San Francisco': 'SFO',
+    'San Jose': 'SJC', 'Seattle': 'SEA', 'Tampa': 'TPA',
+    'Washington, DC': 'DCA',
+    // International
+    'Athens, GRC': 'ATH', 'Barcelona, ESP': 'BCN', 'Beijing, CHN': 'PEK', 'Berlin, DEU': 'BER',
+    'Dubai, UAE': 'DXB', 'Madrid, ESP': 'MAD', 'Melbourne, AUS': 'MEL',
+    'Montreal, CAN': 'YUL', 'Ottawa, CAN': 'YOW', 'Sao Paulo, BRA': 'SAO',
+    'Sydney, AUS': 'SYD', 'Tokyo, JPN': 'TYO', 'Toronto, CAN': 'YYZ',
+    'Vancouver, CAN': 'YVR'
+  };
+
+  function getInitials(fullName) {
+    const parts = fullName.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 0) return '';
+    if (parts.length === 1) return parts[0][0].toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  function slugify(str) {
+    return str.replace(/[^a-zA-Z0-9]/g, '').substring(0, 20);
+  }
+
+  function getMarketAbbr(marketVal, otherVal) {
+    if (marketVal === 'other') {
+      // Take first 3 letters of city portion, uppercase
+      const city = otherVal.split(',')[0].trim();
+      return city.replace(/[^a-zA-Z]/g, '').substring(0, 3).toUpperCase();
+    }
+    return marketAbbr[marketVal] || marketVal.replace(/[^a-zA-Z]/g, '').substring(0, 3).toUpperCase();
+  }
+
+  function updateFolderName() {
+    const name      = document.getElementById('name').value.trim();
+    const market    = document.getElementById('market').value;
+    const otherMkt  = document.getElementById('otherMarket').value.trim();
+    const shootDate = document.getElementById('shootDate').value;
+    const client    = document.getElementById('client').value.trim();
+    const photos    = document.getElementById('photos').value;
+
+    const display = document.getElementById('folderNameDisplay');
+    const copyBtn = document.getElementById('copyBtn');
+
+    if (!name && !client && !shootDate && !market) {
+      display.textContent = 'Fill in the form below to generate your folder name';
+      display.classList.add('placeholder');
+      copyBtn.style.display = 'none';
+      return;
+    }
+
+    // Date: YYMMDD
+    let datePart = '______';
+    if (shootDate) {
+      const d = new Date(shootDate + 'T00:00:00');
+      const yy = String(d.getFullYear()).slice(-2);
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      datePart = yy + mm + dd;
+    }
+
+    const clientPart  = client  ? slugify(client)  : '[Client]';
+    const marketPart  = market  ? getMarketAbbr(market, otherMkt) : '[Mkt]';
+    const initials    = name    ? getInitials(name) : '[Ini]';
+    const filesPart   = photos  ? photos            : '[#]';
+
+    const folderName = `${datePart}_${clientPart}_${marketPart}_${initials}_${filesPart}`;
+
+    display.textContent = folderName;
+    display.classList.remove('placeholder');
+    copyBtn.style.display = 'inline-block';
+  }
+
+  function copyFolderName() {
+    const text = document.getElementById('folderNameDisplay').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function handleMarket(sel) {
+    const wrap = document.getElementById('otherMarketWrap');
+    if (sel.value === 'other') {
+      wrap.classList.add('visible');
+    } else {
+      wrap.classList.remove('visible');
+      document.getElementById('otherMarket').value = '';
+    }
+    updateFolderName();
+  }
+
+  function setInvalid(id, invalid) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (invalid) el.classList.add('invalid');
+    else el.classList.remove('invalid');
+  }
+
+  // Wire up live folder name generation
+  ['name', 'shootDate', 'client', 'photos', 'otherMarket'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateFolderName);
+  });
+
+  document.getElementById('assignmentForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const name      = document.getElementById('name').value.trim();
+    const email     = document.getElementById('email').value.trim();
+    const market    = document.getElementById('market').value;
+    const otherMkt  = document.getElementById('otherMarket').value.trim();
+    const shootDate = document.getElementById('shootDate').value;
+    const client    = document.getElementById('client').value.trim();
+    const people    = document.getElementById('people').value;
+    const photos    = document.getElementById('photos').value;
+    const notes     = document.getElementById('notes').value.trim();
+
+    let valid = true;
+
+    setInvalid('f-name',      !name);         if (!name) valid = false;
+    setInvalid('f-email',     !email || !email.includes('@')); if (!email || !email.includes('@')) valid = false;
+    setInvalid('f-market',    !market);        if (!market) valid = false;
+    setInvalid('f-shoot-date',!shootDate);     if (!shootDate) valid = false;
+    setInvalid('f-client',    !client);        if (!client) valid = false;
+    setInvalid('f-people',    !people);        if (!people) valid = false;
+    setInvalid('f-photos',    !photos);        if (!photos) valid = false;
+
+    if (market === 'other' && !otherMkt) {
+      document.getElementById('otherMarketWrap').classList.add('invalid');
+      valid = false;
+    } else {
+      document.getElementById('otherMarketWrap').classList.remove('invalid');
+    }
+
+    if (!valid) return;
+
+    const marketFinal  = market === 'other' ? otherMkt : market;
+    const folderName   = document.getElementById('folderNameDisplay').textContent;
+
+    const subject = encodeURIComponent(`Assignment Submission: ${client} | ${marketFinal} | ${shootDate}`);
+    const body = encodeURIComponent(
+`ROUSE PHOTOGRAPHY GROUP
+Assignment Submission
+--------------------------------
+Photographer: ${name}
+Email: ${email}
+
+Market: ${marketFinal}
+Client: ${client}
+Assignment Date: ${shootDate}
+Dropbox Folder Name: ${folderName}
+
+# People Photographed: ${people}
+# Files Being Uploaded: ${photos}
+
+Notes for Post-Production:
+${notes || 'None'}
+--------------------------------
+Submitted via Assignment Portal`
+    );
+
+    window.location.href = `mailto:delane@rousephotographygroup.com?subject=${subject}&body=${body}`;
+
+    setTimeout(() => {
+      document.getElementById('assignmentForm').style.display = 'none';
+      document.getElementById('namingBanner').style.display = 'none';
+      document.getElementById('successScreen').classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 800);
+  });
+
+  // Live validation clear
+  document.querySelectorAll('input, select, textarea').forEach(el => {
+    el.addEventListener('input', function() {
+      const parent = this.closest('.field');
+      if (parent) parent.classList.remove('invalid');
+    });
+  });
+</script>
 </body>
 </html>
