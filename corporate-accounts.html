@@ -126,14 +126,75 @@
     }
 
     /* Scheduler */
+    .ca-paths {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .ca-path {
+      text-align: left;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--border);
+      padding: 1.75rem 1.75rem 1.5rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s;
+    }
+    .ca-path:hover { border-color: var(--light); }
+    .ca-path.is-active { border-top-color: var(--gold); border-color: var(--black); border-top-color: var(--gold); }
+    .ca-path-title {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+    .ca-path-desc {
+      display: block;
+      font-size: 0.93rem;
+      line-height: 1.55;
+      color: var(--mid);
+    }
+    .ca-panel { display: none; }
+    .ca-panel.is-active { display: block; }
+    .ca-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .ca-option {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.4rem;
+      background: transparent;
+      border: 1px solid var(--black);
+      color: var(--black);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ca-option:hover { background: var(--black); color: var(--white); }
+    .ca-option.is-active { background: var(--black); color: var(--white); }
+    .ca-option-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--mid);
+      flex-basis: 100%;
+    }
+    .ca-option-note a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
     .ca-sched-head {
       display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 2rem;
-      margin-bottom: 2rem;
+      justify-content: flex-end;
+      margin-bottom: 0.75rem;
     }
-    .ca-sched-head .ca-lede { margin: 0; }
     .ca-sched-head a {
       font-family: 'DM Sans', sans-serif;
       font-size: 0.78rem;
@@ -199,7 +260,7 @@
       max-width: 62ch;
     }
     .ca-faq a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
-    .ca-faq summary:focus-visible, .ca-sched-head a:focus-visible, .btn:focus-visible {
+    .ca-faq summary:focus-visible, .ca-sched-head a:focus-visible, .btn:focus-visible, .ca-path:focus-visible, .ca-option:focus-visible {
       outline: 2px solid var(--gold);
       outline-offset: 3px;
     }
@@ -245,7 +306,7 @@
       .ca-band-actions { justify-self: start; }
       .ca-steps { grid-template-columns: 1fr; }
       .ca-step + .ca-step { padding-left: 0; border-left: 0; }
-      .ca-sched-head { flex-direction: column; align-items: start; gap: 1rem; }
+      .ca-paths { grid-template-columns: 1fr; }
       .ca-sched-frame iframe { min-height: 1100px; }
       .ca-section { padding: 4rem 5vw; }
     }
@@ -313,7 +374,7 @@
       <div class="ca-step">
         <div class="n">1</div>
         <h3>Choose a session</h3>
-        <p>Select the studio or on-site option that matches how your firm books. Session types are listed in the scheduler below.</p>
+        <p>Decide whether your people come to our studio or we come to your office, then choose the group size.</p>
       </div>
       <div class="ca-step">
         <div class="n">2</div>
@@ -332,18 +393,41 @@
 <!-- SCHEDULER -->
 <section class="ca-section warm" id="schedule">
   <div class="ca-wrap">
-    <div class="ca-sched-head">
-      <div>
-        <h2>Schedule a <em>session.</em></h2>
-        <p class="ca-lede">Select a category, then a session, then a time.</p>
+    <h2>Schedule a <em>session.</em></h2>
+    <p class="ca-lede">Two ways to book. Send your people to our Alexandria studio, or we bring the studio to your office.</p>
+
+    <div class="ca-paths" role="tablist" aria-label="Where the session takes place">
+      <button class="ca-path is-active" role="tab" aria-selected="true" aria-controls="ca-panel-studio" id="ca-tab-studio" data-path="studio">
+        <span class="ca-path-title">Come to our studio</span>
+        <span class="ca-path-desc">4501 Ford Avenue, Suite 107, Alexandria. Best for one to three people who can step out for an hour.</span>
+      </button>
+      <button class="ca-path" role="tab" aria-selected="false" aria-controls="ca-panel-onsite" id="ca-tab-onsite" data-path="onsite">
+        <span class="ca-path-title">We come to you</span>
+        <span class="ca-path-desc">We set up in a conference room and photograph your team without anyone leaving the building.</span>
+      </button>
+    </div>
+
+    <div class="ca-panel is-active" id="ca-panel-studio" role="tabpanel" aria-labelledby="ca-tab-studio">
+      <div class="ca-options">
+        <button class="ca-option is-active" data-src="https://dcheadshots.as.me/schedule/45d03366/?appointmentTypeIds[]=59507887">One person</button>
+        <button class="ca-option" data-src="https://dcheadshots.as.me/schedule/45d03366/?appointmentTypeIds[]=75545696">Two to three people</button>
+        <span class="ca-option-note">More than three? Book back-to-back one-person slots, or call <a href="tel:2022573918">202.257.3918</a> and we'll hold the block.</span>
       </div>
-      <a href="https://dcheadshots.as.me/" target="_blank" rel="noopener">Open in a new window</a>
+    </div>
+
+    <div class="ca-panel" id="ca-panel-onsite" role="tabpanel" aria-labelledby="ca-tab-onsite">
+      <div class="ca-options">
+        <span class="ca-option-note">Pick the group size that fits, then a date. Nine or more people, or a multi-office program? Call <a href="tel:2022573918">202.257.3918</a> and we'll build the day around you.</span>
+      </div>
+    </div>
+
+    <div class="ca-sched-head">
+      <a id="ca-open-new" href="https://dcheadshots.as.me/schedule/45d03366/?appointmentTypeIds[]=59507887" target="_blank" rel="noopener">Open in a new window</a>
     </div>
     <div class="ca-sched-frame">
-      <iframe src="https://dcheadshots.as.me/" title="Rouse Photography Group corporate account scheduler" loading="lazy"></iframe>
+      <iframe id="ca-sched" src="https://dcheadshots.as.me/schedule/45d03366/?appointmentTypeIds[]=59507887" title="Rouse Photography Group corporate account scheduler" loading="lazy"></iframe>
     </div>
   </div>
-  <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
 </section>
 
 <!-- FOR ADMINISTRATORS -->
@@ -364,7 +448,7 @@
       </details>
       <details>
         <summary>Rescheduling or cancelling</summary>
-        <p>Use the link in the confirmation email to move or cancel a session. Once a session is booked, that time is reserved exclusively for your team, so please review our <a href="cancellations.html">cancellation and rescheduling policy</a>. If something comes up last minute, call us and we will work with you.</p>
+        <p>Use the link in the confirmation email to move or cancel a session. Once a session is booked, that time is reserved exclusively for your team, so please review our <a href="https://dccorporateheadshots.com/cancellations/">cancellation and rescheduling policy</a>. If something comes up last minute, call us and we will work with you.</p>
       </details>
       <details>
         <summary>Session packages and codes</summary>
@@ -436,6 +520,35 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var onsiteSrc = 'https://dcheadshots.as.me/schedule/45d03366/?categories[]=30-Corporate%20Accounts%20%28On-Site%29';
+  var frame = document.getElementById('ca-sched');
+  var openNew = document.getElementById('ca-open-new');
+  var paths = document.querySelectorAll('.ca-path');
+  var panels = document.querySelectorAll('.ca-panel');
+  var options = document.querySelectorAll('.ca-option');
+
+  function load(src) { frame.src = src; openNew.href = src; }
+
+  paths.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      paths.forEach(function (b) { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+      panels.forEach(function (p) { p.classList.remove('is-active'); });
+      btn.classList.add('is-active'); btn.setAttribute('aria-selected', 'true');
+      document.getElementById('ca-panel-' + btn.dataset.path).classList.add('is-active');
+      if (btn.dataset.path === 'onsite') { load(onsiteSrc); }
+      else { var active = document.querySelector('#ca-panel-studio .ca-option.is-active') || options[0]; load(active.dataset.src); }
+    });
+  });
+  options.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      options.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active'); load(btn.dataset.src);
+    });
+  });
+})();
+</script>
 <script src="main.js"></script>
 </body>
 </html>
