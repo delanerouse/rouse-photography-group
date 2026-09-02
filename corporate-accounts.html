@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corporate Account Scheduling Center | Rouse Photography Group</title>
+  <meta name="description" content="Corporate account clients of Rouse Photography Group and DC Corporate Headshots can view real-time availability, book sessions for their team, and manage appointments here." />
+  <link rel="canonical" href="https://rousephotographygroup.com/corporate-accounts.html" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---------- Corporate Accounts page ---------- */
+    .ca-hero {
+      padding: calc(var(--nav-h) + 6rem) 5vw 3.5rem;
+      background: var(--white);
+    }
+    .ca-hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+      gap: 4rem;
+      align-items: end;
+    }
+    .ca-kicker {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--mid);
+      margin-bottom: 1.25rem;
+    }
+    .ca-kicker b { font-weight: 500; color: var(--black); }
+    .ca-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+      line-height: 1.02;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      margin: 0;
+    }
+    .ca-hero h1 em { font-style: italic; font-weight: 400; }
+    .ca-hero-side p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.02rem;
+      line-height: 1.65;
+      color: var(--mid);
+      margin: 0 0 1.75rem;
+      max-width: 34ch;
+    }
+    .ca-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    /* Full-bleed portrait strip: the one memorable element */
+    .ca-strip { background: var(--white); }
+    .ca-strip img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 2400 / 1000;
+      object-fit: cover;
+    }
+    .ca-strip-caption-wrap { padding: 0.9rem 5vw 0; }
+    .ca-strip-caption {
+      max-width: 1180px;
+      margin: 0 auto;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.06em;
+      color: var(--light);
+    }
+
+    /* Sections */
+    .ca-section { padding: 6rem 5vw; }
+    .ca-section.warm { background: var(--warm); }
+    .ca-wrap { max-width: 1180px; margin: 0 auto; }
+    .ca-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 3.4vw, 2.9rem);
+      line-height: 1.1;
+      color: var(--black);
+      margin: 0 0 0.75rem;
+    }
+    .ca-section h2 em { font-style: italic; font-weight: 400; }
+    .ca-lede {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--mid);
+      max-width: 60ch;
+      margin: 0 0 3rem;
+    }
+
+    /* How it works: a true sequence, so numbered */
+    .ca-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .ca-step {
+      padding: 2rem 2rem 2rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ca-step + .ca-step { padding-left: 2rem; border-left: 1px solid var(--border); }
+    .ca-step .n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .ca-step h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--black);
+      margin: 0 0 0.5rem;
+    }
+    .ca-step p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--mid);
+      margin: 0;
+    }
+
+    /* Scheduler */
+    .ca-sched-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .ca-sched-head .ca-lede { margin: 0; }
+    .ca-sched-head a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      white-space: nowrap;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      text-decoration: none;
+    }
+    .ca-sched-frame {
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+    .ca-sched-frame iframe {
+      display: block;
+      width: 100%;
+      min-height: 900px;
+      border: 0;
+    }
+
+    /* Administrators */
+    .ca-admin {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 4rem;
+      align-items: start;
+    }
+    .ca-admin h2 { margin-bottom: 1rem; }
+    .ca-admin .ca-lede { margin-bottom: 0; }
+    .ca-faq { border-top: 1px solid var(--border); }
+    .ca-faq details { border-bottom: 1px solid var(--border); }
+    .ca-faq summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 1.25rem 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--black);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .ca-faq summary::-webkit-details-marker { display: none; }
+    .ca-faq summary::after {
+      content: '+';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      transition: transform 0.2s;
+    }
+    .ca-faq details[open] summary::after { transform: rotate(45deg); }
+    .ca-faq p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--mid);
+      margin: 0 0 1.25rem;
+      max-width: 62ch;
+    }
+    .ca-faq a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
+    .ca-faq summary:focus-visible, .ca-sched-head a:focus-visible, .btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* Not yet a corporate account */
+    .ca-band {
+      background: var(--black);
+      color: var(--white);
+      padding: 5rem 5vw;
+    }
+    .ca-band .ca-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 3rem;
+      align-items: center;
+    }
+    .ca-band h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 3.4vw, 2.9rem);
+      line-height: 1.1;
+      color: var(--white);
+      margin: 0 0 0.75rem;
+    }
+    .ca-band h2 em { font-style: italic; font-weight: 400; }
+    .ca-band p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--light);
+      margin: 0;
+      max-width: 52ch;
+    }
+    .ca-band-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-self: end; }
+    .ca-band .btn-outline { color: var(--white); border-color: var(--white); }
+    .ca-band .btn-outline:hover { background: var(--white); color: var(--black); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ca-faq summary::after { transition: none; }
+    }
+    @media (max-width: 900px) {
+      .ca-hero-inner, .ca-admin, .ca-band .ca-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .ca-band-actions { justify-self: start; }
+      .ca-steps { grid-template-columns: 1fr; }
+      .ca-step + .ca-step { padding-left: 0; border-left: 0; }
+      .ca-sched-head { flex-direction: column; align-items: start; gap: 1rem; }
+      .ca-sched-frame iframe { min-height: 1100px; }
+      .ca-section { padding: 4rem 5vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    R(O)USE
+    <span>Photography Group</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="for-companies.html">For Companies</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="for-companies.html">For Companies</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<header class="ca-hero">
+  <div class="ca-hero-inner">
+    <div>
+      <p class="ca-kicker"><b>DC Corporate Headshots</b> is now part of Rouse Photography Group. Your account, availability, and booking process are unchanged.</p>
+      <h1>Corporate Account<br /><em>Scheduling Center</em></h1>
+    </div>
+    <div class="ca-hero-side">
+      <p>View real-time availability, book sessions for anyone on your team, and manage upcoming appointments in one place.</p>
+      <div class="ca-hero-actions">
+        <a href="#schedule" class="btn btn-primary">Schedule a session</a>
+        <a href="tel:2022573918" class="btn btn-outline">202.257.3918</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PORTRAIT STRIP -->
+<div class="ca-strip">
+  <img src="images/corporate-accounts-hero.jpg" alt="Five corporate portraits photographed by Rouse Photography Group" width="2400" height="1000" />
+  <div class="ca-strip-caption-wrap"><p class="ca-strip-caption">Corporate portraits by Rouse Photography Group</p></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="ca-section">
+  <div class="ca-wrap">
+    <h2>Booking takes <em>about a minute.</em></h2>
+    <p class="ca-lede">Your firm's account is already set up. Anyone at your organization can book from this page, and office administrators can book on behalf of colleagues.</p>
+    <div class="ca-steps">
+      <div class="ca-step">
+        <div class="n">1</div>
+        <h3>Choose a session</h3>
+        <p>Select the studio or on-site option that matches how your firm books. Session types are listed in the scheduler below.</p>
+      </div>
+      <div class="ca-step">
+        <div class="n">2</div>
+        <h3>Pick a date and time</h3>
+        <p>Availability is live. What you see is what is open, so the time you choose is yours the moment you confirm.</p>
+      </div>
+      <div class="ca-step">
+        <div class="n">3</div>
+        <h3>Get confirmation and reminders</h3>
+        <p>A confirmation lands in your inbox right away, with a reminder ahead of the session and a link to reschedule if plans change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULER -->
+<section class="ca-section warm" id="schedule">
+  <div class="ca-wrap">
+    <div class="ca-sched-head">
+      <div>
+        <h2>Schedule a <em>session.</em></h2>
+        <p class="ca-lede">Select a category, then a session, then a time.</p>
+      </div>
+      <a href="https://dcheadshots.as.me/" target="_blank" rel="noopener">Open in a new window</a>
+    </div>
+    <div class="ca-sched-frame">
+      <iframe src="https://dcheadshots.as.me/" title="Rouse Photography Group corporate account scheduler" loading="lazy"></iframe>
+    </div>
+  </div>
+  <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript"></script>
+</section>
+
+<!-- FOR ADMINISTRATORS -->
+<section class="ca-section">
+  <div class="ca-wrap ca-admin">
+    <div>
+      <h2>For office <em>administrators.</em></h2>
+      <p class="ca-lede">Most corporate accounts are managed by one coordinator who books for the whole team. Here is what you need to know.</p>
+    </div>
+    <div class="ca-faq">
+      <details open>
+        <summary>Booking for someone else</summary>
+        <p>Enter the colleague's name and email at checkout so the confirmation and reminders go to them. You can add your own email as a copy so you stay in the loop.</p>
+      </details>
+      <details>
+        <summary>Booking several people at once</summary>
+        <p>Book each person as a separate appointment in consecutive time slots. For groups of eight or more, or for a full-day on-site session, call us and we will block the day for you.</p>
+      </details>
+      <details>
+        <summary>Rescheduling or cancelling</summary>
+        <p>Use the link in the confirmation email to move or cancel a session. Once a session is booked, that time is reserved exclusively for your team, so please review our <a href="cancellations.html">cancellation and rescheduling policy</a>. If something comes up last minute, call us and we will work with you.</p>
+      </details>
+      <details>
+        <summary>Session packages and codes</summary>
+        <p>If your firm has a prepaid session package, enter your code at checkout. You can check the remaining balance on a code any time from the scheduler.</p>
+      </details>
+      <details>
+        <summary>Your account rate and invoicing</summary>
+        <p>Each corporate account has its own terms. Your rate, billing contact, and delivery timeline were confirmed when your account was set up. Questions about any of it, call <a href="tel:2022573918">202.257.3918</a>.</p>
+      </details>
+      <details>
+        <summary>Where sessions take place</summary>
+        <p>On-site at your office, or at our studio at 4501 Ford Avenue, Suite 107, Alexandria, Virginia 22302. Many firms prefer on-site so the team stays productive; the studio is always available as the simpler option.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- NOT YET A CORPORATE ACCOUNT -->
+<section class="ca-band">
+  <div class="ca-wrap">
+    <div>
+      <h2>Not a corporate account <em>yet?</em></h2>
+      <p>Corporate accounts get a dedicated coordinator, a consistent look across every office, and a booking process your team can run without us. Fifteen minutes is enough to set one up.</p>
+    </div>
+    <div class="ca-band-actions">
+      <a href="https://calendly.com/dcheadshots/consult15" class="btn btn-gold" target="_blank" rel="noopener">Book a 15-minute consult</a>
+      <a href="contact.html" class="btn btn-outline">Request a quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">R(O)USE Photography Group</div>
+        <p class="footer-desc">America's premier corporate headshot studio. On-site photography for the organizations that set the standard.</p>
+        <p class="footer-contact-line">4501 Ford Avenue, Suite 107</p>
+        <p class="footer-contact-line">Alexandria, Virginia 22302</p>
+        <p class="footer-contact-line" style="margin-top:0.5rem;"><a href="tel:2022573918">202.257.3918</a></p>
+        <p class="footer-contact-line"><a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="for-companies.html">For Companies</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="for-companies.html">Corporate Programs</a></li>
+          <li><a href="for-companies.html">Government &amp; Military</a></li>
+          <li><a href="for-companies.html">Trade Shows &amp; Expos</a></li>
+          <li><a href="for-companies.html">Multi-Site Programs</a></li>
+          <li><a href="corporate-accounts.html">Corporate Account Scheduling</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Rouse Photography Group, LLC. All rights reserved.</span>
+      <span>Washington DC · Alexandria, VA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
