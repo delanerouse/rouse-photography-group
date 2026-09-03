@@ -43,19 +43,16 @@
       color: var(--mid); max-width: 62ch; margin: 0 0 2.5rem;
     }
 
-    /* Do this / not this */
-    .lp-dos { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--border); }
-    .lp-do { padding: 2rem 2rem 2rem 0; border-bottom: 1px solid var(--border); }
-    .lp-do + .lp-do { padding-left: 2rem; border-left: 1px solid var(--border); }
-    .lp-do .lbl {
-      font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; line-height: 1;
-      margin-bottom: 0.9rem;
-    }
-    .lp-do .lbl b { font-weight: 500; }
-    .lp-do.yes .lbl b { color: var(--gold); }
-    .lp-do.no .lbl b { color: var(--light); }
-    .lp-do p { font-family: 'DM Sans', sans-serif; font-size: 0.97rem; line-height: 1.6; color: var(--mid); margin: 0; max-width: 46ch; }
-    .lp-do p strong { color: var(--black); font-weight: 500; }
+    /* Steps */
+    .lp-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); }
+    .lp-step { padding: 2rem 2rem 2rem 0; border-bottom: 1px solid var(--border); }
+    .lp-step + .lp-step { padding-left: 2rem; border-left: 1px solid var(--border); }
+    .lp-step .n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; line-height: 1; color: var(--gold); margin-bottom: 1rem; }
+    .lp-step h3 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; color: var(--black); margin: 0 0 0.5rem; }
+    .lp-step p { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--mid); margin: 0; }
+    .lp-callout { border-left: 2px solid var(--gold); padding: 0.25rem 0 0.25rem 1.5rem; margin-top: 2rem; }
+    .lp-callout p { font-family: 'DM Sans', sans-serif; font-size: 0.97rem; line-height: 1.65; color: var(--mid); margin: 0; max-width: 66ch; }
+    .lp-callout strong { color: var(--black); font-weight: 500; }
 
     /* Filter */
     .lp-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 2rem; }
@@ -154,8 +151,8 @@
     @media (max-width: 800px) {
       .lp-hero-inner, .lp-band .lp-wrap { grid-template-columns: 1fr; gap: 2rem; }
       .lp-band-actions { justify-self: start; }
-      .lp-dos { grid-template-columns: 1fr; }
-      .lp-do + .lp-do { padding-left: 0; border-left: 0; }
+      .lp-steps { grid-template-columns: 1fr; }
+      .lp-step + .lp-step { padding-left: 0; border-left: 0; }
       .lp-section { padding: 3.5rem 5vw; }
     }
     @media (max-width: 560px) {
@@ -213,15 +210,25 @@
   <div class="lp-wrap">
     <h2>Before you <em>book.</em></h2>
     <p class="lp-lede">It's your responsibility to schedule the right session type, studio or on-location, in line with your firm's specifications and budget. If you're not sure which one applies, check with your marketing department before scheduling.</p>
-    <div class="lp-dos">
-      <div class="lp-do yes">
-        <div class="lbl"><b>Do</b> this</div>
-        <p>Find your city below and click <strong>Request a session</strong>. Tell us who you are, how many people, and your target dates. Your local photographer replies directly and Delane is copied.</p>
+    <div class="lp-steps">
+      <div class="lp-step">
+        <div class="n">1</div>
+        <h3>Find your city</h3>
+        <p>Every market below has a photographer who already works to your firm's specifications, so new portraits match the ones you have.</p>
       </div>
-      <div class="lp-do no">
-        <div class="lbl"><b>Not</b> this</div>
-        <p>Call Delane and leave a message saying "I need to schedule a headshot." Your local photographer has the calendar. Delane doesn't.</p>
+      <div class="lp-step">
+        <div class="n">2</div>
+        <h3>Send the request</h3>
+        <p>Click Request a session and give us the basics: who's being photographed, how many people, studio or on location, and your target dates.</p>
       </div>
+      <div class="lp-step">
+        <div class="n">3</div>
+        <h3>Your photographer confirms</h3>
+        <p>The request goes to the photographer for that city, with Delane Rouse copied. They reply directly to set the date and details.</p>
+      </div>
+    </div>
+    <div class="lp-callout">
+      <p><strong>Please route every request through this page.</strong> Your local photographer holds the calendar for their market. Calling the studio or emailing Delane directly adds a step and slows things down.</p>
     </div>
   </div>
 </section>
