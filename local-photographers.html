@@ -65,6 +65,19 @@
     .lp-filter button:hover { border-color: var(--black); }
     .lp-filter button.is-active { background: var(--black); border-color: var(--black); color: var(--white); }
 
+    /* Regions */
+    .lp-jump { display: flex; flex-wrap: wrap; gap: 0.35rem 1.4rem; margin: -0.75rem 0 2.5rem; }
+    .lp-jump a { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+    .lp-jump a:hover { color: var(--black); border-bottom-color: var(--gold); }
+    .lp-region { margin-bottom: 3rem; scroll-margin-top: calc(var(--nav-h) + 1.5rem); }
+    .lp-region.is-empty { display: none; }
+    .lp-region-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; color: var(--black);
+      margin: 0 0 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--black);
+      display: flex; align-items: baseline; gap: 0.75rem;
+    }
+    .lp-region-title::after { content: ''; flex: 1; }
+    #region-hq .lp-region-title { color: var(--gold); border-bottom-color: var(--gold); }
     /* City grid */
     .lp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     .lp-card {
@@ -224,11 +237,11 @@
       <div class="lp-step">
         <div class="n">3</div>
         <h3>Your photographer confirms</h3>
-        <p>The request goes to the photographer for that city, with Delane Rouse copied. They reply directly to set the date and details.</p>
+        <p>The request goes to the photographer for that city, with our office coordinator, Jessie Lee, copied. They reply directly to set the date and details.</p>
       </div>
     </div>
     <div class="lp-callout">
-      <p><strong>Please route every request through this page.</strong> Your local photographer holds the calendar for their market. Calling the studio or emailing Delane directly adds a step and slows things down.</p>
+      <p><strong>Please route every request through this page.</strong> Your local photographer holds the calendar for their market. Calling the studio adds a step and slows things down.</p>
     </div>
   </div>
 </section>
@@ -237,7 +250,7 @@
 <section class="lp-section warm" id="cities">
   <div class="lp-wrap">
     <h2>Find your <em>city.</em></h2>
-    <p class="lp-lede">Listed alphabetically. Each card shows whether the photographer offers on-location sessions, studio sessions, or both. Studio cities also have a direct booking link.</p>
+    <p class="lp-lede">Grouped by region, alphabetical within each. Each card shows whether the photographer offers on-location sessions, studio sessions, or both. Studio cities also have a direct booking link.</p>
 
     <div class="lp-filter" role="group" aria-label="Filter by session type">
       <span>Show</span>
@@ -246,353 +259,19 @@
       <button data-filter="studio">Studio</button>
     </div>
 
-    <div class="lp-grid">
-      <div class="lp-card" data-types="location" data-market="Atlanta" data-name="Nina P.">
-        <div class="lp-city">Atlanta</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Nina P.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="Austin" data-name="Korey H.">
-        <div class="lp-city">Austin</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Korey H.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Baltimore" data-name="Nick M.">
-        <div class="lp-city">Baltimore</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Nick M.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Boston" data-name="Damon B.">
-        <div class="lp-city">Boston</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Damon B.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="Charlotte NC" data-name="Scott C.">
-        <div class="lp-city">Charlotte, NC</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Scott C.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="Chicago" data-name="Matt K.">
-        <div class="lp-city">Chicago</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Matt K.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Columbus OH" data-name="Delane R.">
-        <div class="lp-city">Columbus, OH</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="studio" data-market="Dallas" data-name="Romy M.">
-        <div class="lp-city">Dallas</div>
-        <div class="lp-type">Studio only</div>
-        <div class="lp-name">Romy M.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-        <div class="lp-note">Need an on-location session in Dallas? Use the request button and Delane will arrange it.</div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="Denver" data-name="Katie W.">
-        <div class="lp-city">Denver</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Katie W.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-        <div class="lp-note">On-location requests go straight to Katie through the request button.</div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Detroit" data-name="Delane R.">
-        <div class="lp-city">Detroit</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Greensboro NC" data-name="Terrence J.">
-        <div class="lp-city">Greensboro, NC</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Terrence J.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Houston" data-name="Mike S.">
-        <div class="lp-city">Houston</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Mike S.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Indianapolis" data-name="Delane R.">
-        <div class="lp-city">Indianapolis</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Jacksonville FL" data-name="Delane R.">
-        <div class="lp-city">Jacksonville, FL</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Las Vegas" data-name="Delane R.">
-        <div class="lp-city">Las Vegas</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="Los Angeles" data-name="John G.">
-        <div class="lp-city">Los Angeles</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">John G.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Louisville" data-name="Delane R.">
-        <div class="lp-city">Louisville</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Melbourne Australia" data-name="Delane R.">
-        <div class="lp-city">Melbourne, Australia</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Memphis" data-name="Delane R.">
-        <div class="lp-city">Memphis</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Miami / Ft. Lauderdale" data-name="Preston M.">
-        <div class="lp-city">Miami / Ft. Lauderdale</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Preston M.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Nashville" data-name="Delane R.">
-        <div class="lp-city">Nashville</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="New Orleans" data-name="Noel M.">
-        <div class="lp-city">New Orleans</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Noel M.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-          <a class="lp-studio" href="https://app.acuityscheduling.com/schedule/1733aec4/appointment/83029010/calendar/3998016?appointmentTypeIds[]=83029010" target="_blank" rel="noopener">Book the New Orleans studio</a>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="New York" data-name="Peter L.">
-        <div class="lp-city">New York</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Peter L.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="studio" data-market="Orlando" data-name="Al B.">
-        <div class="lp-city">Orlando</div>
-        <div class="lp-type">Studio only</div>
-        <div class="lp-name">Al B.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Ottawa" data-name="Delane R.">
-        <div class="lp-city">Ottawa</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Philadelphia / New Jersey" data-name="Peter L.">
-        <div class="lp-city">Philadelphia / New Jersey</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Peter L.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Phoenix" data-name="Delane R.">
-        <div class="lp-city">Phoenix</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location studio" data-market="Raleigh NC" data-name="Terrence J.">
-        <div class="lp-city">Raleigh, NC</div>
-        <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Terrence J.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-          <a class="lp-studio" href="https://preferredheadshots.17hats.com/p#/scheduling/rcrdkzvzpsgvpsgwthtsgbhhfcrhwnvh/rzrbsvvzbvwsdrpcfvpncdwsfcffnwhd" target="_blank" rel="noopener">Book the Raleigh studio</a>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Richmond VA" data-name="Delane R.">
-        <div class="lp-city">Richmond, VA</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="San Antonio" data-name="Delane R.">
-        <div class="lp-city">San Antonio</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="San Diego" data-name="Rob A.">
-        <div class="lp-city">San Diego</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Rob A.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="San Francisco" data-name="Craig S.">
-        <div class="lp-city">San Francisco</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Craig S.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="San Jose / Northern California" data-name="Delane R.">
-        <div class="lp-city">San Jose / Northern California</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Seattle" data-name="Roger K.">
-        <div class="lp-city">Seattle</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Roger K.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Sydney Australia" data-name="Delane R.">
-        <div class="lp-city">Sydney, Australia</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Toronto" data-name="Delane R.">
-        <div class="lp-city">Toronto</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Vancouver" data-name="Delane R.">
-        <div class="lp-city">Vancouver</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Arranged by Rouse HQ</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
-      <div class="lp-card" data-types="location" data-market="Winston-Salem NC" data-name="Terrence J.">
-        <div class="lp-city">Winston-Salem, NC</div>
-        <div class="lp-type">On location only</div>
-        <div class="lp-name">Terrence J.</div>
-        <div class="lp-actions">
-          <button class="lp-request" type="button">Request a session</button>
-        </div>
-      </div>
-
+    <div class="lp-jump" role="navigation" aria-label="Jump to region">
+      <a href="#region-mid-atlantic">Mid-Atlantic</a>
+      <a href="#region-northeast">Northeast</a>
+      <a href="#region-southeast">Southeast</a>
+      <a href="#region-midwest">Midwest</a>
+      <a href="#region-southwest">Texas and Southwest</a>
+      <a href="#region-west">West Coast</a>
+      <a href="#region-canada">Canada</a>
+      <a href="#region-australia">Australia</a>
+    </div>
+    <section class="lp-region" id="region-hq">
+      <h3 class="lp-region-title">Headquarters</h3>
+      <div class="lp-grid">
       <div class="lp-card hq" data-types="location studio" data-market="Washington DC" data-name="Delane R.">
         <div class="lp-city">Washington, DC</div>
         <div class="lp-type">On location + studio · Headquarters</div>
@@ -602,8 +281,357 @@
         </div>
         <div class="lp-note">DC area clients book directly through the Corporate Account Scheduling Center, studio or on-site, no request needed. Studio: 4501 Ford Avenue, Suite 107, Alexandria, VA 22302 (<a href="https://maps.google.com/?q=4501+Ford+Avenue+Suite+107+Alexandria+VA+22302" target="_blank" rel="noopener">map</a>).</div>
       </div>
-    </div>
-    <p class="lp-legend">Every request goes to the photographer for that city with Delane copied, and you get a confirmation by email.</p>
+      </div>
+    </section>
+    <section class="lp-region" id="region-mid-atlantic">
+      <h3 class="lp-region-title">Mid-Atlantic</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location" data-market="Baltimore" data-name="Nick M.">
+        <div class="lp-city">Baltimore</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Nick M.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Philadelphia / New Jersey" data-name="Peter L.">
+        <div class="lp-city">Philadelphia / New Jersey</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Peter L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Richmond VA" data-name="Delane R.">
+        <div class="lp-city">Richmond, VA</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="lp-region" id="region-northeast">
+      <h3 class="lp-region-title">Northeast</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location" data-market="Boston" data-name="Damon B.">
+        <div class="lp-city">Boston</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Damon B.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location studio" data-market="New York" data-name="Peter L.">
+        <div class="lp-city">New York</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Peter L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="lp-region" id="region-southeast">
+      <h3 class="lp-region-title">Southeast</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location" data-market="Atlanta" data-name="Nina P.">
+        <div class="lp-city">Atlanta</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Nina P.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location studio" data-market="Charlotte NC" data-name="Scott C.">
+        <div class="lp-city">Charlotte, NC</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Scott C.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Greensboro NC" data-name="Terrence J.">
+        <div class="lp-city">Greensboro, NC</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Terrence J.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Jacksonville FL" data-name="Delane R.">
+        <div class="lp-city">Jacksonville, FL</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Louisville" data-name="Delane R.">
+        <div class="lp-city">Louisville</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Memphis" data-name="Delane R.">
+        <div class="lp-city">Memphis</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Miami / Ft. Lauderdale" data-name="Preston M.">
+        <div class="lp-city">Miami / Ft. Lauderdale</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Preston M.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Nashville" data-name="Delane R.">
+        <div class="lp-city">Nashville</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location studio" data-market="New Orleans" data-name="Noel M.">
+        <div class="lp-city">New Orleans</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Noel M.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+          <a class="lp-studio" href="https://app.acuityscheduling.com/schedule/1733aec4/appointment/83029010/calendar/3998016?appointmentTypeIds[]=83029010" target="_blank" rel="noopener">Book the New Orleans studio</a>
+        </div>
+      </div>
+      <div class="lp-card" data-types="studio" data-market="Orlando" data-name="Al B.">
+        <div class="lp-city">Orlando</div>
+        <div class="lp-type">Studio only</div>
+        <div class="lp-name">Al B.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location studio" data-market="Raleigh NC" data-name="Terrence J.">
+        <div class="lp-city">Raleigh, NC</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Terrence J.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+          <a class="lp-studio" href="https://preferredheadshots.17hats.com/p#/scheduling/rcrdkzvzpsgvpsgwthtsgbhhfcrhwnvh/rzrbsvvzbvwsdrpcfvpncdwsfcffnwhd" target="_blank" rel="noopener">Book the Raleigh studio</a>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Winston-Salem NC" data-name="Terrence J.">
+        <div class="lp-city">Winston-Salem, NC</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Terrence J.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="lp-region" id="region-midwest">
+      <h3 class="lp-region-title">Midwest</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location studio" data-market="Chicago" data-name="Matt K.">
+        <div class="lp-city">Chicago</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Matt K.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Columbus OH" data-name="Delane R.">
+        <div class="lp-city">Columbus, OH</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Detroit" data-name="Delane R.">
+        <div class="lp-city">Detroit</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Indianapolis" data-name="Delane R.">
+        <div class="lp-city">Indianapolis</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="lp-region" id="region-southwest">
+      <h3 class="lp-region-title">Texas and Southwest</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location studio" data-market="Austin" data-name="Korey H.">
+        <div class="lp-city">Austin</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Korey H.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="studio" data-market="Dallas" data-name="Romy M.">
+        <div class="lp-city">Dallas</div>
+        <div class="lp-type">Studio only</div>
+        <div class="lp-name">Romy M.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+        <div class="lp-note">Need an on-location session in Dallas? Use the request button and Jessie will arrange it.</div>
+      </div>
+      <div class="lp-card" data-types="location studio" data-market="Denver" data-name="Katie W.">
+        <div class="lp-city">Denver</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Katie W.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+        <div class="lp-note">On-location requests go straight to Katie through the request button.</div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Houston" data-name="Mike S.">
+        <div class="lp-city">Houston</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Mike S.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Las Vegas" data-name="Delane R.">
+        <div class="lp-city">Las Vegas</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Phoenix" data-name="Delane R.">
+        <div class="lp-city">Phoenix</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="San Antonio" data-name="Delane R.">
+        <div class="lp-city">San Antonio</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="lp-region" id="region-west">
+      <h3 class="lp-region-title">West Coast</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location studio" data-market="Los Angeles" data-name="John G.">
+        <div class="lp-city">Los Angeles</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">John G.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="San Diego" data-name="Rob A.">
+        <div class="lp-city">San Diego</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Rob A.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="San Francisco" data-name="Craig S.">
+        <div class="lp-city">San Francisco</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Craig S.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="San Jose / Northern California" data-name="Delane R.">
+        <div class="lp-city">San Jose / Northern California</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Seattle" data-name="Roger K.">
+        <div class="lp-city">Seattle</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Roger K.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="lp-region" id="region-canada">
+      <h3 class="lp-region-title">Canada</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location" data-market="Ottawa" data-name="Delane R.">
+        <div class="lp-city">Ottawa</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Toronto" data-name="Delane R.">
+        <div class="lp-city">Toronto</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Vancouver" data-name="Delane R.">
+        <div class="lp-city">Vancouver</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="lp-region" id="region-australia">
+      <h3 class="lp-region-title">Australia</h3>
+      <div class="lp-grid">
+      <div class="lp-card" data-types="location" data-market="Melbourne Australia" data-name="Delane R.">
+        <div class="lp-city">Melbourne, Australia</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      <div class="lp-card" data-types="location" data-market="Sydney Australia" data-name="Delane R.">
+        <div class="lp-city">Sydney, Australia</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Arranged by Jessie L.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+      </div>
+      </div>
+    </section>
+    <p class="lp-legend">Every request goes to the photographer for that city with Jessie Lee, our office coordinator, copied. You get a confirmation by email.</p>
   </div>
 </section>
 
@@ -633,14 +661,14 @@
           <div class="lp-tag lp-tag-city"><span class="lp-tag-lbl">Market</span><h2 id="lp-modal-title">City</h2></div>
           <div class="lp-tag"><span class="lp-tag-lbl">Your photographer</span><span id="lp-modal-name">Name</span></div>
         </div>
-        <p id="lp-modal-sub">Your request goes to the photographer above, with Delane Rouse copied.</p>
+        <p id="lp-modal-sub">Your request goes to the photographer above, with our office coordinator copied.</p>
       </div>
       <button class="lp-modal-close" type="button" aria-label="Close" data-close>&times;</button>
     </div>
     <div class="lp-modal-body">
       <iframe id="lp-form" title="Session request form" loading="lazy"></iframe>
     </div>
-    <p class="lp-modal-foot">Prefer email? Write to <a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a> and mention your city.</p>
+    <p class="lp-modal-foot">Prefer email? Write to <a href="mailto:jessie@rousephotographygroup.com">jessie@rousephotographygroup.com</a> and mention your city.</p>
   </div>
 </div>
 
@@ -695,11 +723,11 @@
   function openFor(market, name, label) {
     lastFocus = document.activeElement;
     title.textContent = label || market;
-    document.getElementById('lp-modal-name').textContent = /^Delane/.test(name) ? 'Delane Rouse' : name;
+    document.getElementById('lp-modal-name').textContent = /^Delane/.test(name) ? 'Jessie Lee, Office Coordinator' : name;
     if (/^Delane/.test(name)) {
-      sub.textContent = 'Your request goes directly to Delane Rouse. You will get a confirmation by email.';
+      sub.textContent = 'Your request goes to Jessie Lee, our office coordinator, who will arrange a photographer for you. You will get a confirmation by email.';
     } else {
-      sub.textContent = 'Delane Rouse is copied on every request. You will get a confirmation by email.';
+      sub.textContent = 'Jessie Lee, our office coordinator, is copied on every request. You will get a confirmation by email.';
     }
     frame.src = FORM + '?prefill_Market=' + encodeURIComponent(market) + '&hide_Market=true&backgroundColor=transparent';
     modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
@@ -731,6 +759,9 @@
       var f = btn.dataset.filter;
       cards.forEach(function (c) {
         c.classList.toggle('is-hidden', f !== 'all' && c.dataset.types.indexOf(f) === -1);
+      });
+      document.querySelectorAll('.lp-region').forEach(function (r) {
+        r.classList.toggle('is-empty', r.querySelectorAll('.lp-card:not(.is-hidden)').length === 0);
       });
     });
   });
