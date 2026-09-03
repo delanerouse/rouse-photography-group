@@ -111,7 +111,16 @@
     }
     .lp-modal-head { display: flex; justify-content: space-between; align-items: start; gap: 1rem; padding: 1.75rem 2rem 1rem; border-bottom: 1px solid var(--border); }
     .lp-modal-kicker { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
-    .lp-modal-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; line-height: 1.05; color: var(--black); margin: 0 0 0.4rem; }
+    .lp-modal-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.9rem; }
+    .lp-tag {
+      display: flex; flex-direction: column; gap: 0.15rem;
+      padding: 0.6rem 1rem 0.65rem; border: 1px solid var(--border); background: var(--warm);
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; color: var(--black);
+    }
+    .lp-tag-city { border: 2px solid var(--gold); background: var(--white); }
+    .lp-tag-lbl { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); font-weight: 400; }
+    .lp-tag-city .lp-tag-lbl { color: var(--gold); }
+    .lp-modal-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.9rem; line-height: 1.05; color: var(--black); margin: 0; }
     .lp-modal-head p { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--mid); margin: 0; }
     .lp-modal-close { background: none; border: 0; font-size: 2rem; line-height: 1; color: var(--mid); cursor: pointer; padding: 0 0.25rem; }
     .lp-modal-close:hover { color: var(--black); }
@@ -452,8 +461,11 @@
     <div class="lp-modal-head">
       <div>
         <div class="lp-modal-kicker">Session request</div>
-        <h2 id="lp-modal-title">City</h2>
-        <p id="lp-modal-sub">Your request goes to the photographer below, with Delane Rouse copied.</p>
+        <div class="lp-modal-tags">
+          <div class="lp-tag lp-tag-city"><span class="lp-tag-lbl">Market</span><h2 id="lp-modal-title">City</h2></div>
+          <div class="lp-tag"><span class="lp-tag-lbl">Your photographer</span><span id="lp-modal-name">Name</span></div>
+        </div>
+        <p id="lp-modal-sub">Your request goes to the photographer above, with Delane Rouse copied.</p>
       </div>
       <button class="lp-modal-close" type="button" aria-label="Close" data-close>&times;</button>
     </div>
@@ -515,10 +527,11 @@
   function openFor(market, name, label) {
     lastFocus = document.activeElement;
     title.textContent = label || market;
+    document.getElementById('lp-modal-name').textContent = /^Delane/.test(name) ? 'Delane Rouse' : name;
     if (/^Delane/.test(name)) {
       sub.textContent = 'Your request goes directly to Delane Rouse. You will get a confirmation by email.';
     } else {
-      sub.textContent = 'Your request goes to ' + name + ', with Delane Rouse copied. You will get a confirmation by email.';
+      sub.textContent = 'Delane Rouse is copied on every request. You will get a confirmation by email.';
     }
     frame.src = FORM + '?prefill_Market=' + encodeURIComponent(market) + '&hide_Market=true&backgroundColor=transparent';
     modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
