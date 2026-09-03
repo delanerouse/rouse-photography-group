@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Photographer List | Rouse Photography Group</title>
+  <meta name="description" content="Corporate account clients: find your Rouse Photography Group network photographer by city and book new or updated portraits that match your firm's existing style." />
+  <link rel="canonical" href="https://rousephotographygroup.com/local-photographers" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .lp-hero { padding: calc(var(--nav-h) + 6rem) 5vw 3rem; background: var(--white); }
+    .lp-hero-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 4rem; align-items: end;
+    }
+    .lp-kicker {
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--mid); margin-bottom: 1.25rem;
+    }
+    .lp-hero h1 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(2.6rem, 5.2vw, 4.4rem); line-height: 1.02; letter-spacing: -0.01em;
+      color: var(--black); margin: 0;
+    }
+    .lp-hero h1 em { font-style: italic; font-weight: 400; }
+    .lp-hero-side p {
+      font-family: 'DM Sans', sans-serif; font-size: 1.02rem; line-height: 1.65;
+      color: var(--mid); margin: 0; max-width: 40ch;
+    }
+    .lp-hero-side strong { color: var(--black); font-weight: 500; }
+
+    .lp-section { padding: 5rem 5vw; }
+    .lp-section.warm { background: var(--warm); }
+    .lp-wrap { max-width: 1180px; margin: 0 auto; }
+    .lp-section h2 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.1; color: var(--black); margin: 0 0 0.75rem;
+    }
+    .lp-section h2 em { font-style: italic; font-weight: 400; }
+    .lp-lede {
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; line-height: 1.65;
+      color: var(--mid); max-width: 62ch; margin: 0 0 2.5rem;
+    }
+
+    /* Do this / not this */
+    .lp-dos { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--border); }
+    .lp-do { padding: 2rem 2rem 2rem 0; border-bottom: 1px solid var(--border); }
+    .lp-do + .lp-do { padding-left: 2rem; border-left: 1px solid var(--border); }
+    .lp-do .lbl {
+      font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; line-height: 1;
+      margin-bottom: 0.9rem;
+    }
+    .lp-do .lbl b { font-weight: 500; }
+    .lp-do.yes .lbl b { color: var(--gold); }
+    .lp-do.no .lbl b { color: var(--light); }
+    .lp-do p { font-family: 'DM Sans', sans-serif; font-size: 0.97rem; line-height: 1.6; color: var(--mid); margin: 0; max-width: 46ch; }
+    .lp-do p strong { color: var(--black); font-weight: 500; }
+
+    /* Filter */
+    .lp-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 2rem; }
+    .lp-filter span { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-right: 0.5rem; }
+    .lp-filter button {
+      font-family: 'DM Sans', sans-serif; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.55rem 1.1rem; background: transparent; border: 1px solid var(--border); color: var(--black);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .lp-filter button:hover { border-color: var(--black); }
+    .lp-filter button.is-active { background: var(--black); border-color: var(--black); color: var(--white); }
+
+    /* City grid */
+    .lp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .lp-card {
+      background: var(--white); border: 1px solid var(--border); padding: 1.6rem 1.6rem 1.5rem;
+      display: flex; flex-direction: column; gap: 0.35rem; position: relative;
+    }
+    .lp-card.is-hidden { display: none; }
+    .lp-city {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; font-weight: 400; line-height: 1.1; color: var(--black);
+    }
+    .lp-type {
+      font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .lp-name { font-family: 'DM Sans', sans-serif; font-size: 0.98rem; font-weight: 500; color: var(--black); }
+    .lp-contact { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; line-height: 1.5; color: var(--mid); word-break: break-word; }
+    .lp-contact a { color: var(--black); text-decoration: none; border-bottom: 1px solid var(--gold); }
+    .lp-contact a.lp-cta { display: inline-block; margin-top: 0.35rem; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .lp-note { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; line-height: 1.5; color: var(--mid); margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--border); }
+    .lp-note a { color: var(--black); text-decoration: none; border-bottom: 1px solid var(--gold); }
+    .lp-card.hq { border-color: var(--black); border-top: 2px solid var(--gold); }
+    .lp-legend { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--light); margin-top: 1.5rem; }
+
+    /* Other markets band */
+    .lp-band { background: var(--black); color: var(--white); padding: 5rem 5vw; }
+    .lp-band .lp-wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: center; }
+    .lp-band h2 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 3.4vw, 2.9rem);
+      line-height: 1.1; color: var(--white); margin: 0 0 0.75rem;
+    }
+    .lp-band h2 em { font-style: italic; font-weight: 400; }
+    .lp-band p { font-family: 'DM Sans', sans-serif; font-size: 1rem; line-height: 1.65; color: var(--light); margin: 0; max-width: 50ch; }
+    .lp-band-actions { justify-self: end; }
+    .lp-band .btn-outline { color: var(--white); border-color: var(--white); }
+    .lp-band .btn-outline:hover { background: var(--white); color: var(--black); }
+
+    .lp-meta { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--light); text-align: center; padding: 2rem 5vw 0; }
+    .lp-meta a { color: var(--mid); }
+    .btn:focus-visible, .lp-filter button:focus-visible, .lp-contact a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    @media (max-width: 1000px) { .lp-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 800px) {
+      .lp-hero-inner, .lp-band .lp-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .lp-band-actions { justify-self: start; }
+      .lp-dos { grid-template-columns: 1fr; }
+      .lp-do + .lp-do { padding-left: 0; border-left: 0; }
+      .lp-section { padding: 3.5rem 5vw; }
+    }
+    @media (max-width: 560px) { .lp-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    R(O)USE
+    <span>Photography Group</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="for-companies.html">For Companies</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="for-companies.html">For Companies</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<header class="lp-hero">
+  <div class="lp-hero-inner">
+    <div>
+      <p class="lp-kicker">Corporate accounts · All sessions by appointment only</p>
+      <h1>Local <em>Photographer List</em></h1>
+    </div>
+    <div class="lp-hero-side">
+      <p>Book new or updated portraits in your city. Every photographer on this list already has your firm's <strong>specifications and style</strong>, so new portraits match the ones you have.</p>
+    </div>
+  </div>
+</header>
+
+<!-- BEFORE YOU BOOK -->
+<section class="lp-section">
+  <div class="lp-wrap">
+    <h2>Before you <em>book.</em></h2>
+    <p class="lp-lede">It's your responsibility to schedule the right session type, studio or on-location, in line with your firm's specifications and budget. If you're not sure which one applies, check with your marketing department before scheduling.</p>
+    <div class="lp-dos">
+      <div class="lp-do yes">
+        <div class="lbl"><b>Do</b> this</div>
+        <p>Find your city below and contact the photographer directly using their <strong>preferred method</strong>. Include your name, firm, the number of people, and your target dates.</p>
+      </div>
+      <div class="lp-do no">
+        <div class="lbl"><b>Not</b> this</div>
+        <p>Call Delane and leave a message saying "I need to schedule a headshot." Your local photographer has the calendar. Delane doesn't.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CITY LIST -->
+<section class="lp-section warm" id="cities">
+  <div class="lp-wrap">
+    <h2>Find your <em>city.</em></h2>
+    <p class="lp-lede">Listed alphabetically. Each card shows whether the photographer offers on-location sessions, studio sessions, or both.</p>
+
+    <div class="lp-filter" role="group" aria-label="Filter by session type">
+      <span>Show</span>
+      <button class="is-active" data-filter="all">All cities</button>
+      <button data-filter="location">On location</button>
+      <button data-filter="studio">Studio</button>
+    </div>
+
+    <div class="lp-grid">
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">Atlanta</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Nina P.</div>
+        <div class="lp-contact"><a href="mailto:nina@ninaparkerphotography.com">nina@ninaparkerphotography.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">Austin</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Korey H.</div>
+        <div class="lp-contact"><a href="mailto:korey@koreyhowellphotography.com">korey@koreyhowellphotography.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">Baltimore</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Nick M.</div>
+        <div class="lp-contact"><a href="mailto:nick@nickmorelandphoto.com">nick@nickmorelandphoto.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">Boston</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Damon B.</div>
+        <div class="lp-contact"><a href="mailto:damonbates1@gmail.com">damonbates1@gmail.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">Charlotte</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Scott C.</div>
+        <div class="lp-contact"><a href="mailto:scott@scottclinton.com">scott@scottclinton.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">Chicago</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Matt K.</div>
+        <div class="lp-contact"><a href="mailto:matt@mattkosterman.com">matt@mattkosterman.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="studio">
+        <div class="lp-city">Dallas</div>
+        <div class="lp-type">Studio only</div>
+        <div class="lp-name">Romy M.</div>
+        <div class="lp-contact"><a href="mailto:romy@romymodlin.com">romy@romymodlin.com</a></div>
+        <div class="lp-note">Need an on-location session in Dallas? <a href="mailto:delane@rousephotographygroup.com">Email Delane</a>.</div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">Denver</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Katie W.</div>
+        <div class="lp-contact"><a href="mailto:Katie@GreenEarthPhotography.com">Katie@GreenEarthPhotography.com</a></div>
+        <div class="lp-note">For on-location sessions, reach out by email.</div>
+      </div>
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">Houston</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Mike S.</div>
+        <div class="lp-contact"><a href="mailto:mike@michaelstarghill.com">mike@michaelstarghill.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">Los Angeles</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">John G.</div>
+        <div class="lp-contact"><a href="mailto:john@johnglover.photography">john@johnglover.photography</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">Miami / Ft. Lauderdale</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Preston M.</div>
+        <div class="lp-contact"><a href="mailto:prestonmack@gmail.com">prestonmack@gmail.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">New Orleans</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Noel M.</div>
+        <div class="lp-contact"><a class="lp-cta" href="https://app.acuityscheduling.com/schedule/1733aec4/appointment/83029010/calendar/3998016?appointmentTypeIds[]=83029010" target="_blank" rel="noopener">Schedule in our New Orleans studio</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">New York</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Peter L.</div>
+        <div class="lp-contact"><a href="mailto:pete@lerrophotography.com">pete@lerrophotography.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="studio">
+        <div class="lp-city">Orlando</div>
+        <div class="lp-type">Studio only</div>
+        <div class="lp-name">Al B.</div>
+        <div class="lp-contact"><a href="mailto:al@hughesfioretti.com">al@hughesfioretti.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">Philadelphia / New Jersey</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Peter L.</div>
+        <div class="lp-contact"><a href="mailto:pete@lerrophotography.com">pete@lerrophotography.com</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location studio">
+        <div class="lp-city">Raleigh</div>
+        <div class="lp-type">On location + studio</div>
+        <div class="lp-name">Terrence J.</div>
+        <div class="lp-contact"><a class="lp-cta" href="https://preferredheadshots.17hats.com/p#/scheduling/rcrdkzvzpsgvpsgwthtsgbhhfcrhwnvh/rzrbsvvzbvwsdrpcfvpncdwsfcffnwhd" target="_blank" rel="noopener">Schedule in our Raleigh studio</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">San Francisco</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Craig S.</div>
+        <div class="lp-contact"><a href="mailto:craig@craigsherodphoto.com">craig@craigsherodphoto.com</a><br /><a href="tel:6502798132">(650) 279-8132</a></div>
+      </div>
+
+      <div class="lp-card" data-types="location">
+        <div class="lp-city">Seattle</div>
+        <div class="lp-type">On location only</div>
+        <div class="lp-name">Roger K.</div>
+        <div class="lp-contact"><a href="mailto:roger@rogerknopfphoto.com">roger@rogerknopfphoto.com</a></div>
+      </div>
+
+      <div class="lp-card hq" data-types="location studio">
+        <div class="lp-city">Washington, DC</div>
+        <div class="lp-type">On location + studio · Headquarters</div>
+        <div class="lp-name">Delane R.</div>
+        <div class="lp-contact"><a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a><br /><a class="lp-cta" href="corporate-accounts.html">Schedule in the DC area</a></div>
+        <div class="lp-note">Studio: 4501 Ford Avenue, Suite 107, Alexandria, VA 22302 (<a href="https://maps.google.com/?q=4501+Ford+Avenue+Suite+107+Alexandria+VA+22302" target="_blank" rel="noopener">map</a>).</div>
+      </div>
+
+    </div>
+    <p class="lp-legend">Email is the preferred way to reach every photographer on this list unless a phone number is shown.</p>
+  </div>
+</section>
+
+<!-- OTHER MARKETS -->
+<section class="lp-band">
+  <div class="lp-wrap">
+    <div>
+      <h2>Any other market? <em>We've got you.</em></h2>
+      <p>If your city isn't listed, email Delane with the details: roughly how many people, potential dates, and any deadline. We'll line up a photographer who shoots to the same standard.</p>
+    </div>
+    <div class="lp-band-actions">
+      <a href="mailto:delane@rousephotographygroup.com?subject=Photographer%20request%20for%20a%20new%20market" class="btn btn-gold">Email Delane</a>
+    </div>
+  </div>
+</section>
+
+<p class="lp-meta">Updated September 3, 2026. Corporate account clients can also visit the <a href="corporate-accounts.html">Corporate Account Scheduling Center</a>.</p>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">R(O)USE Photography Group</div>
+        <p class="footer-desc">America's premier corporate headshot studio. On-site photography for the organizations that set the standard.</p>
+        <p class="footer-contact-line">4501 Ford Avenue, Suite 107</p>
+        <p class="footer-contact-line">Alexandria, Virginia 22302</p>
+        <p class="footer-contact-line" style="margin-top:0.5rem;"><a href="tel:2022573918">202.257.3918</a></p>
+        <p class="footer-contact-line"><a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="for-companies.html">For Companies</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="for-companies.html">Corporate Programs</a></li>
+          <li><a href="for-companies.html">Government &amp; Military</a></li>
+          <li><a href="for-companies.html">Trade Shows &amp; Expos</a></li>
+          <li><a href="local-photographers.html">Local Photographer List</a></li>
+          <li><a href="corporate-accounts.html">Corporate Account Scheduling</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Rouse Photography Group, LLC. All rights reserved.</span>
+      <span>Washington DC · Alexandria, VA</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.lp-filter button');
+  var cards = document.querySelectorAll('.lp-card');
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      buttons.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      var f = btn.dataset.filter;
+      cards.forEach(function (c) {
+        c.classList.toggle('is-hidden', f !== 'all' && c.dataset.types.indexOf(f) === -1);
+      });
+    });
+  });
+})();
+</script>
+<script src="main.js"></script>
+</body>
+</html>
