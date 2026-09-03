@@ -66,18 +66,29 @@
     .lp-filter button.is-active { background: var(--black); border-color: var(--black); color: var(--white); }
 
     /* Regions */
-    .lp-jump { display: flex; flex-wrap: wrap; gap: 0.35rem 1.4rem; margin: -0.75rem 0 2.5rem; }
-    .lp-jump a { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
-    .lp-jump a:hover { color: var(--black); border-bottom-color: var(--gold); }
-    .lp-region { margin-bottom: 3rem; scroll-margin-top: calc(var(--nav-h) + 1.5rem); }
+    .lp-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 2.25rem; }
+    .lp-pill {
+      font-family: 'DM Sans', sans-serif; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 999px; background: var(--white);
+      color: var(--black); cursor: pointer; transition: all 0.2s;
+    }
+    .lp-pill:hover { border-color: var(--black); }
+    .lp-pill.is-active { background: var(--black); border-color: var(--black); color: var(--white); }
+    .lp-region { margin-bottom: 1rem; scroll-margin-top: calc(var(--nav-h) + 1.5rem); }
     .lp-region.is-empty { display: none; }
     .lp-region-title {
+      width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--black);
+      display: flex; align-items: baseline; gap: 0.75rem; padding: 0.9rem 0; margin: 0; cursor: pointer;
       font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; color: var(--black);
-      margin: 0 0 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--black);
-      display: flex; align-items: baseline; gap: 0.75rem;
     }
-    .lp-region-title::after { content: ''; flex: 1; }
+    .lp-region-title:hover span:first-child { color: var(--gold); }
+    .lp-region-count { font-family: 'DM Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); flex: 1; }
+    .lp-region-chev { width: 0.55rem; height: 0.55rem; border-right: 1px solid var(--black); border-bottom: 1px solid var(--black); transform: rotate(45deg); transition: transform 0.2s; align-self: center; }
+    .lp-region.is-collapsed .lp-region-chev { transform: rotate(-45deg); }
+    .lp-region .lp-grid { padding: 1.25rem 0 2rem; }
+    .lp-region.is-collapsed .lp-grid { display: none; }
     #region-hq .lp-region-title { color: var(--gold); border-bottom-color: var(--gold); }
+    .lp-region-title:focus-visible, .lp-pill:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
     /* City grid */
     .lp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     .lp-card {
@@ -250,7 +261,7 @@
 <section class="lp-section warm" id="cities">
   <div class="lp-wrap">
     <h2>Find your <em>city.</em></h2>
-    <p class="lp-lede">Grouped by region, alphabetical within each. Each card shows whether the photographer offers on-location sessions, studio sessions, or both. Studio cities also have a direct booking link.</p>
+    <p class="lp-lede">Pick your region to see its cities, or show all. Each card shows whether the photographer offers on-location sessions, studio sessions, or both. Studio cities also have a direct booking link.</p>
 
     <div class="lp-filter" role="group" aria-label="Filter by session type">
       <span>Show</span>
@@ -259,18 +270,20 @@
       <button data-filter="studio">Studio</button>
     </div>
 
-    <div class="lp-jump" role="navigation" aria-label="Jump to region">
-      <a href="#region-mid-atlantic">Mid-Atlantic</a>
-      <a href="#region-northeast">Northeast</a>
-      <a href="#region-southeast">Southeast</a>
-      <a href="#region-midwest">Midwest</a>
-      <a href="#region-southwest">Texas and Southwest</a>
-      <a href="#region-west">West Coast</a>
-      <a href="#region-canada">Canada</a>
-      <a href="#region-australia">Australia</a>
+    <div class="lp-pills" role="group" aria-label="Regions">
+      <button class="lp-pill" data-region="all">Show all</button>
+      <button class="lp-pill" data-region="hq">Headquarters</button>
+      <button class="lp-pill" data-region="mid-atlantic">Mid-Atlantic</button>
+      <button class="lp-pill" data-region="northeast">Northeast</button>
+      <button class="lp-pill" data-region="southeast">Southeast</button>
+      <button class="lp-pill" data-region="midwest">Midwest</button>
+      <button class="lp-pill" data-region="southwest">Texas and Southwest</button>
+      <button class="lp-pill" data-region="west">West Coast</button>
+      <button class="lp-pill" data-region="canada">Canada</button>
+      <button class="lp-pill" data-region="australia">Australia</button>
     </div>
     <section class="lp-region" id="region-hq">
-      <h3 class="lp-region-title">Headquarters</h3>
+      <button class="lp-region-title" type="button" aria-expanded="true"><span>Headquarters</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card hq" data-types="location studio" data-market="Washington DC" data-name="Delane R.">
         <div class="lp-city">Washington, DC</div>
@@ -283,8 +296,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-mid-atlantic">
-      <h3 class="lp-region-title">Mid-Atlantic</h3>
+    <section class="lp-region is-collapsed" id="region-mid-atlantic">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>Mid-Atlantic</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location" data-market="Baltimore" data-name="Nick M.">
         <div class="lp-city">Baltimore</div>
@@ -312,8 +325,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-northeast">
-      <h3 class="lp-region-title">Northeast</h3>
+    <section class="lp-region is-collapsed" id="region-northeast">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>Northeast</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location" data-market="Boston" data-name="Damon B.">
         <div class="lp-city">Boston</div>
@@ -333,8 +346,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-southeast">
-      <h3 class="lp-region-title">Southeast</h3>
+    <section class="lp-region is-collapsed" id="region-southeast">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>Southeast</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location" data-market="Atlanta" data-name="Nina P.">
         <div class="lp-city">Atlanta</div>
@@ -436,8 +449,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-midwest">
-      <h3 class="lp-region-title">Midwest</h3>
+    <section class="lp-region is-collapsed" id="region-midwest">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>Midwest</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location studio" data-market="Chicago" data-name="Matt K.">
         <div class="lp-city">Chicago</div>
@@ -473,8 +486,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-southwest">
-      <h3 class="lp-region-title">Texas and Southwest</h3>
+    <section class="lp-region is-collapsed" id="region-southwest">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>Texas and Southwest</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location studio" data-market="Austin" data-name="Korey H.">
         <div class="lp-city">Austin</div>
@@ -536,8 +549,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-west">
-      <h3 class="lp-region-title">West Coast</h3>
+    <section class="lp-region is-collapsed" id="region-west">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>West Coast</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location studio" data-market="Los Angeles" data-name="John G.">
         <div class="lp-city">Los Angeles</div>
@@ -581,8 +594,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-canada">
-      <h3 class="lp-region-title">Canada</h3>
+    <section class="lp-region is-collapsed" id="region-canada">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>Canada</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location" data-market="Ottawa" data-name="Delane R.">
         <div class="lp-city">Ottawa</div>
@@ -610,8 +623,8 @@
       </div>
       </div>
     </section>
-    <section class="lp-region" id="region-australia">
-      <h3 class="lp-region-title">Australia</h3>
+    <section class="lp-region is-collapsed" id="region-australia">
+      <button class="lp-region-title" type="button" aria-expanded="false"><span>Australia</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
       <div class="lp-card" data-types="location" data-market="Melbourne Australia" data-name="Delane R.">
         <div class="lp-city">Melbourne, Australia</div>
@@ -750,6 +763,39 @@
   modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
 
+  var regions = document.querySelectorAll('.lp-region');
+  var pills = document.querySelectorAll('.lp-pill');
+  function setOpen(region, open) {
+    region.classList.toggle('is-collapsed', !open);
+    region.querySelector('.lp-region-title').setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function updateCounts() {
+    regions.forEach(function (r) {
+      var n = r.querySelectorAll('.lp-card:not(.is-hidden)').length;
+      r.querySelector('.lp-region-count').textContent = n + (n === 1 ? ' city' : ' cities');
+      r.classList.toggle('is-empty', n === 0);
+    });
+  }
+  regions.forEach(function (r) {
+    r.querySelector('.lp-region-title').addEventListener('click', function () {
+      setOpen(r, r.classList.contains('is-collapsed'));
+      pills.forEach(function (p) { p.classList.remove('is-active'); });
+    });
+  });
+  pills.forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      pills.forEach(function (p) { p.classList.remove('is-active'); });
+      pill.classList.add('is-active');
+      var key = pill.dataset.region;
+      regions.forEach(function (r) { setOpen(r, key === 'all' || r.id === 'region-' + key); });
+      if (key !== 'all') {
+        var target = document.getElementById('region-' + key);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  updateCounts();
+
   var buttons = document.querySelectorAll('.lp-filter button');
   var cards = document.querySelectorAll('.lp-card');
   buttons.forEach(function (btn) {
@@ -760,9 +806,7 @@
       cards.forEach(function (c) {
         c.classList.toggle('is-hidden', f !== 'all' && c.dataset.types.indexOf(f) === -1);
       });
-      document.querySelectorAll('.lp-region').forEach(function (r) {
-        r.classList.toggle('is-empty', r.querySelectorAll('.lp-card:not(.is-hidden)').length === 0);
-      });
+      updateCounts();
     });
   });
 })();
