@@ -438,7 +438,7 @@
       <p>If your city isn't listed, send the request anyway: roughly how many people, potential dates, and any deadline. We'll line up a photographer who shoots to the same standard.</p>
     </div>
     <div class="lp-band-actions">
-      <button type="button" class="btn btn-gold lp-request" data-market="Other / not listed" data-name="Delane R.">Request a session</button>
+      <button type="button" class="btn btn-gold lp-request" data-market="Other / not listed" data-name="Delane R." data-label="Another city">Request a session</button>
     </div>
   </div>
 </section>
@@ -512,10 +512,14 @@
   var title = document.getElementById('lp-modal-title');
   var sub = document.getElementById('lp-modal-sub');
   var lastFocus = null;
-  function openFor(market, name) {
+  function openFor(market, name, label) {
     lastFocus = document.activeElement;
-    title.textContent = market;
-    sub.textContent = 'Your request goes to ' + name + ', with Delane Rouse copied. You will get a confirmation by email.';
+    title.textContent = label || market;
+    if (/^Delane/.test(name)) {
+      sub.textContent = 'Your request goes directly to Delane Rouse. You will get a confirmation by email.';
+    } else {
+      sub.textContent = 'Your request goes to ' + name + ', with Delane Rouse copied. You will get a confirmation by email.';
+    }
     frame.src = FORM + '?prefill_Market=' + encodeURIComponent(market) + '&hide_Market=true&backgroundColor=transparent';
     modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('lp-modal-open');
@@ -530,7 +534,8 @@
   document.querySelectorAll('.lp-request').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var card = btn.closest('.lp-card');
-      openFor(btn.dataset.market || card.dataset.market, btn.dataset.name || card.dataset.name);
+      var cityEl = card ? card.querySelector('.lp-city') : null;
+      openFor(btn.dataset.market || card.dataset.market, btn.dataset.name || card.dataset.name, btn.dataset.label || (cityEl ? cityEl.textContent : null));
     });
   });
   modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
