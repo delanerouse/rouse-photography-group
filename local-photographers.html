@@ -89,6 +89,38 @@
     .lp-note { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; line-height: 1.5; color: var(--mid); margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--border); }
     .lp-note a { color: var(--black); text-decoration: none; border-bottom: 1px solid var(--gold); }
     .lp-card.hq { border-color: var(--black); border-top: 2px solid var(--gold); }
+    .lp-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-top: 0.9rem; }
+    .lp-request {
+      font-family: 'DM Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.65rem 1.1rem; background: var(--black); color: var(--white); border: 1px solid var(--black);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .lp-request:hover { background: var(--gold); border-color: var(--gold); }
+    .lp-studio {
+      font-family: 'DM Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--black); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 1px;
+    }
+    /* Modal */
+    .lp-modal { display: none; position: fixed; inset: 0; z-index: 99999; }
+    .lp-modal.is-open { display: block; }
+    .lp-modal-backdrop { position: absolute; inset: 0; background: rgba(12, 11, 9, 0.55); }
+    .lp-modal-panel {
+      position: absolute; top: 3vh; left: 50%; transform: translateX(-50%);
+      width: min(760px, 94vw); max-height: 94vh; display: flex; flex-direction: column;
+      background: var(--white); border-top: 3px solid var(--gold); box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    }
+    .lp-modal-head { display: flex; justify-content: space-between; align-items: start; gap: 1rem; padding: 1.75rem 2rem 1rem; border-bottom: 1px solid var(--border); }
+    .lp-modal-kicker { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+    .lp-modal-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2rem; line-height: 1.05; color: var(--black); margin: 0 0 0.4rem; }
+    .lp-modal-head p { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--mid); margin: 0; }
+    .lp-modal-close { background: none; border: 0; font-size: 2rem; line-height: 1; color: var(--mid); cursor: pointer; padding: 0 0.25rem; }
+    .lp-modal-close:hover { color: var(--black); }
+    .lp-modal-body { flex: 1; overflow: auto; background: var(--white); }
+    .lp-modal-body iframe { display: block; width: 100%; height: 1250px; border: 0; }
+    .lp-modal-foot { font-family: 'DM Sans', sans-serif; font-size: 0.8rem; color: var(--mid); margin: 0; padding: 0.9rem 2rem; border-top: 1px solid var(--border); }
+    .lp-modal-foot a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
+    body.lp-modal-open { overflow: hidden; }
+    .lp-request:focus-visible, .lp-modal-close:focus-visible, .lp-studio:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
     .lp-legend { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--light); margin-top: 1.5rem; }
 
     /* Other markets band */
@@ -116,7 +148,11 @@
       .lp-do + .lp-do { padding-left: 0; border-left: 0; }
       .lp-section { padding: 3.5rem 5vw; }
     }
-    @media (max-width: 560px) { .lp-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) {
+      .lp-grid { grid-template-columns: 1fr; }
+      .lp-modal-panel { top: 0; width: 100vw; max-height: 100vh; }
+      .lp-modal-head, .lp-modal-foot { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
   </style>
 </head>
 <body>
@@ -170,7 +206,7 @@
     <div class="lp-dos">
       <div class="lp-do yes">
         <div class="lbl"><b>Do</b> this</div>
-        <p>Find your city below and contact the photographer directly using their <strong>preferred method</strong>. Include your name, firm, the number of people, and your target dates.</p>
+        <p>Find your city below and click <strong>Request a session</strong>. Tell us who you are, how many people, and your target dates. Your local photographer replies directly and Delane is copied.</p>
       </div>
       <div class="lp-do no">
         <div class="lbl"><b>Not</b> this</div>
@@ -184,7 +220,7 @@
 <section class="lp-section warm" id="cities">
   <div class="lp-wrap">
     <h2>Find your <em>city.</em></h2>
-    <p class="lp-lede">Listed alphabetically. Each card shows whether the photographer offers on-location sessions, studio sessions, or both.</p>
+    <p class="lp-lede">Listed alphabetically. Each card shows whether the photographer offers on-location sessions, studio sessions, or both. Studio cities also have a direct booking link.</p>
 
     <div class="lp-filter" role="group" aria-label="Filter by session type">
       <span>Show</span>
@@ -195,158 +231,202 @@
 
     <div class="lp-grid">
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Atlanta" data-name="Nina P.">
         <div class="lp-city">Atlanta</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Nina P.</div>
-        <div class="lp-contact"><a href="mailto:nina@ninaparkerphotography.com">nina@ninaparkerphotography.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="Austin" data-name="Korey H.">
         <div class="lp-city">Austin</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">Korey H.</div>
-        <div class="lp-contact"><a href="mailto:korey@koreyhowellphotography.com">korey@koreyhowellphotography.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Baltimore" data-name="Nick M.">
         <div class="lp-city">Baltimore</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Nick M.</div>
-        <div class="lp-contact"><a href="mailto:nick@nickmorelandphoto.com">nick@nickmorelandphoto.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Boston" data-name="Damon B.">
         <div class="lp-city">Boston</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Damon B.</div>
-        <div class="lp-contact"><a href="mailto:damonbates1@gmail.com">damonbates1@gmail.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="Charlotte, NC" data-name="Scott C.">
         <div class="lp-city">Charlotte, NC</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">Scott C.</div>
-        <div class="lp-contact"><a href="mailto:scott@scottclinton.com">scott@scottclinton.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="Chicago" data-name="Matt K.">
         <div class="lp-city">Chicago</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">Matt K.</div>
-        <div class="lp-contact"><a href="mailto:matt@mattkosterman.com">matt@mattkosterman.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="studio">
+      <div class="lp-card" data-types="studio" data-market="Dallas" data-name="Romy M.">
         <div class="lp-city">Dallas</div>
         <div class="lp-type">Studio only</div>
         <div class="lp-name">Romy M.</div>
-        <div class="lp-contact"><a href="mailto:romy@romymodlin.com">romy@romymodlin.com</a></div>
-        <div class="lp-note">Need an on-location session in Dallas? <a href="mailto:delane@rousephotographygroup.com">Email Delane</a>.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+        <div class="lp-note">Need an on-location session in Dallas? Use the request button and Delane will arrange it.</div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="Denver" data-name="Katie W.">
         <div class="lp-city">Denver</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">Katie W.</div>
-        <div class="lp-contact"><a href="mailto:Katie@GreenEarthPhotography.com">Katie@GreenEarthPhotography.com</a></div>
-        <div class="lp-note">For on-location sessions, reach out by email.</div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
+        <div class="lp-note">On-location requests go straight to Katie through the request button.</div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Greensboro, NC" data-name="Terrence J.">
         <div class="lp-city">Greensboro, NC</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Terrence J.</div>
-        <div class="lp-contact"><a href="mailto:terrence@terrencejonesphoto.com">terrence@terrencejonesphoto.com</a><br /><a href="tel:9195999430">(919) 599-9430</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Houston" data-name="Mike S.">
         <div class="lp-city">Houston</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Mike S.</div>
-        <div class="lp-contact"><a href="mailto:mike@michaelstarghill.com">mike@michaelstarghill.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="Los Angeles" data-name="John G.">
         <div class="lp-city">Los Angeles</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">John G.</div>
-        <div class="lp-contact"><a href="mailto:john@johnglover.photography">john@johnglover.photography</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Miami / Ft. Lauderdale" data-name="Preston M.">
         <div class="lp-city">Miami / Ft. Lauderdale</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Preston M.</div>
-        <div class="lp-contact"><a href="mailto:prestonmack@gmail.com">prestonmack@gmail.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="New Orleans" data-name="Noel M.">
         <div class="lp-city">New Orleans</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">Noel M.</div>
-        <div class="lp-contact"><a class="lp-cta" href="https://app.acuityscheduling.com/schedule/1733aec4/appointment/83029010/calendar/3998016?appointmentTypeIds[]=83029010" target="_blank" rel="noopener">Schedule in our New Orleans studio</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+          <a class="lp-studio" href="https://app.acuityscheduling.com/schedule/1733aec4/appointment/83029010/calendar/3998016?appointmentTypeIds[]=83029010" target="_blank" rel="noopener">Book the New Orleans studio</a>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="New York" data-name="Peter L.">
         <div class="lp-city">New York</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">Peter L.</div>
-        <div class="lp-contact"><a href="mailto:pete@lerrophotography.com">pete@lerrophotography.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="studio">
+      <div class="lp-card" data-types="studio" data-market="Orlando" data-name="Al B.">
         <div class="lp-city">Orlando</div>
         <div class="lp-type">Studio only</div>
         <div class="lp-name">Al B.</div>
-        <div class="lp-contact"><a href="mailto:al@hughesfioretti.com">al@hughesfioretti.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Philadelphia / New Jersey" data-name="Peter L.">
         <div class="lp-city">Philadelphia / New Jersey</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Peter L.</div>
-        <div class="lp-contact"><a href="mailto:pete@lerrophotography.com">pete@lerrophotography.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location studio">
+      <div class="lp-card" data-types="location studio" data-market="Raleigh, NC" data-name="Terrence J.">
         <div class="lp-city">Raleigh, NC</div>
         <div class="lp-type">On location + studio</div>
         <div class="lp-name">Terrence J.</div>
-        <div class="lp-contact"><a class="lp-cta" href="https://preferredheadshots.17hats.com/p#/scheduling/rcrdkzvzpsgvpsgwthtsgbhhfcrhwnvh/rzrbsvvzbvwsdrpcfvpncdwsfcffnwhd" target="_blank" rel="noopener">Schedule in our Raleigh studio</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+          <a class="lp-studio" href="https://preferredheadshots.17hats.com/p#/scheduling/rcrdkzvzpsgvpsgwthtsgbhhfcrhwnvh/rzrbsvvzbvwsdrpcfvpncdwsfcffnwhd" target="_blank" rel="noopener">Book the Raleigh studio</a>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="San Francisco" data-name="Craig S.">
         <div class="lp-city">San Francisco</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Craig S.</div>
-        <div class="lp-contact"><a href="mailto:craig@craigsherodphoto.com">craig@craigsherodphoto.com</a><br /><a href="tel:6502798132">(650) 279-8132</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Seattle" data-name="Roger K.">
         <div class="lp-city">Seattle</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Roger K.</div>
-        <div class="lp-contact"><a href="mailto:roger@rogerknopfphoto.com">roger@rogerknopfphoto.com</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card" data-types="location">
+      <div class="lp-card" data-types="location" data-market="Winston-Salem, NC" data-name="Terrence J.">
         <div class="lp-city">Winston-Salem, NC</div>
         <div class="lp-type">On location only</div>
         <div class="lp-name">Terrence J.</div>
-        <div class="lp-contact"><a href="mailto:terrence@terrencejonesphoto.com">terrence@terrencejonesphoto.com</a><br /><a href="tel:9195999430">(919) 599-9430</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
       </div>
 
-      <div class="lp-card hq" data-types="location studio">
+      <div class="lp-card hq" data-types="location studio" data-market="Washington, DC" data-name="Delane R.">
         <div class="lp-city">Washington, DC</div>
         <div class="lp-type">On location + studio · Headquarters</div>
         <div class="lp-name">Delane R.</div>
-        <div class="lp-contact"><a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a><br /><a class="lp-cta" href="corporate-accounts.html">Schedule in the DC area</a></div>
+        <div class="lp-actions">
+          <button class="lp-request" type="button">Request a session</button>
+        </div>
         <div class="lp-note">Studio: 4501 Ford Avenue, Suite 107, Alexandria, VA 22302 (<a href="https://maps.google.com/?q=4501+Ford+Avenue+Suite+107+Alexandria+VA+22302" target="_blank" rel="noopener">map</a>).</div>
       </div>
 
     </div>
-    <p class="lp-legend">Email is the preferred way to reach every photographer on this list unless a phone number is shown.</p>
+    <p class="lp-legend">Every request goes to the photographer for that city with Delane copied, and you get a confirmation by email.</p>
   </div>
 </section>
 
@@ -355,15 +435,34 @@
   <div class="lp-wrap">
     <div>
       <h2>Any other market? <em>We've got you.</em></h2>
-      <p>If your city isn't listed, email Delane with the details: roughly how many people, potential dates, and any deadline. We'll line up a photographer who shoots to the same standard.</p>
+      <p>If your city isn't listed, send the request anyway: roughly how many people, potential dates, and any deadline. We'll line up a photographer who shoots to the same standard.</p>
     </div>
     <div class="lp-band-actions">
-      <a href="mailto:delane@rousephotographygroup.com?subject=Photographer%20request%20for%20a%20new%20market" class="btn btn-gold">Email Delane</a>
+      <button type="button" class="btn btn-gold lp-request" data-market="Other / not listed" data-name="Delane R.">Request a session</button>
     </div>
   </div>
 </section>
 
 <p class="lp-meta">Updated September 3, 2026. Corporate account clients can also visit the <a href="corporate-accounts.html">Corporate Account Scheduling Center</a>.</p>
+
+<!-- REQUEST MODAL -->
+<div class="lp-modal" id="lp-modal" aria-hidden="true">
+  <div class="lp-modal-backdrop" data-close></div>
+  <div class="lp-modal-panel" role="dialog" aria-modal="true" aria-labelledby="lp-modal-title">
+    <div class="lp-modal-head">
+      <div>
+        <div class="lp-modal-kicker">Session request</div>
+        <h2 id="lp-modal-title">City</h2>
+        <p id="lp-modal-sub">Your request goes to the photographer below, with Delane Rouse copied.</p>
+      </div>
+      <button class="lp-modal-close" type="button" aria-label="Close" data-close>&times;</button>
+    </div>
+    <div class="lp-modal-body">
+      <iframe id="lp-form" title="Session request form" loading="lazy"></iframe>
+    </div>
+    <p class="lp-modal-foot">Prefer email? Write to <a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a> and mention your city.</p>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -407,6 +506,36 @@
 
 <script>
 (function () {
+  var FORM = 'https://airtable.com/embed/appxz89GW103YI3J8/shryVAQuu5AsVvhJH';
+  var modal = document.getElementById('lp-modal');
+  var frame = document.getElementById('lp-form');
+  var title = document.getElementById('lp-modal-title');
+  var sub = document.getElementById('lp-modal-sub');
+  var lastFocus = null;
+  function openFor(market, name) {
+    lastFocus = document.activeElement;
+    title.textContent = market;
+    sub.textContent = 'Your request goes to ' + name + ', with Delane Rouse copied. You will get a confirmation by email.';
+    frame.src = FORM + '?prefill_Market=' + encodeURIComponent(market) + '&hide_Market=true&backgroundColor=transparent';
+    modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lp-modal-open');
+    document.querySelector('.lp-modal-close').focus();
+  }
+  function close() {
+    modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lp-modal-open');
+    frame.src = 'about:blank';
+    if (lastFocus) lastFocus.focus();
+  }
+  document.querySelectorAll('.lp-request').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var card = btn.closest('.lp-card');
+      openFor(btn.dataset.market || card.dataset.market, btn.dataset.name || card.dataset.name);
+    });
+  });
+  modal.querySelectorAll('[data-close]').forEach(function (el) { el.addEventListener('click', close); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+
   var buttons = document.querySelectorAll('.lp-filter button');
   var cards = document.querySelectorAll('.lp-card');
   buttons.forEach(function (btn) {
