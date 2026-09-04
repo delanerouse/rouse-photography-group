@@ -4,7 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gallery | Rouse Photography Group</title>
+  <meta name="description" content="Corporate headshots, executive portraits, and on-site sessions by Rouse Photography Group. Studio work in Alexandria, VA and on-location programs nationwide." />
+  <link rel="canonical" href="https://rousephotographygroup.com/gallery" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rouse Photography Group" />
+  <meta property="og:title" content="Gallery | Rouse Photography Group" />
+  <meta property="og:description" content="Corporate headshots, executive portraits, and on-site sessions by Rouse Photography Group." />
+  <meta property="og:url" content="https://rousephotographygroup.com/gallery" />
+  <meta property="og:image" content="https://rousephotographygroup.com/images/og/og-home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gallery | Rouse Photography Group" />
+  <meta name="twitter:description" content="Corporate headshots, executive portraits, and on-site sessions by Rouse Photography Group." />
+  <meta name="twitter:image" content="https://rousephotographygroup.com/images/og/og-home.jpg" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .g-hero { padding: calc(var(--nav-h) + 5rem) 5vw 2.5rem; }
+    .g-hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: end; }
+    .g-kicker { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .g-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.8rem, 5.6vw, 4.8rem); line-height: 1.0; color: var(--black); margin: 0; }
+    .g-hero h1 em { font-style: italic; font-weight: 400; color: var(--gold); }
+    .g-hero p { font-family: 'DM Sans', sans-serif; font-size: 1.02rem; line-height: 1.65; color: var(--mid); margin: 0; max-width: 42ch; }
+    .g-filter { max-width: 1180px; margin: 0 auto; padding: 0 5vw 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    .g-filter span { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-right: 0.75rem; }
+    .g-filter button { font-family: 'DM Sans', sans-serif; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 999px; background: var(--white); color: var(--black); cursor: pointer; transition: all 0.2s; }
+    .g-filter button:hover { border-color: var(--black); }
+    .g-filter button.is-active { background: var(--black); border-color: var(--black); color: var(--white); }
+    .g-grid { max-width: 1180px; margin: 0 auto; padding: 0 5vw 5rem; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; grid-auto-flow: dense; gap: 0.75rem; }
+    .g-item { margin: 0; grid-row: span 1; overflow: hidden; background: var(--black); }
+    .g-item.tall { grid-row: span 2; }
+    .g-item.wide { grid-column: span 2; }
+    .g-item a { display: block; width: 100%; height: 100%; }
+    .g-item img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; transition: transform 0.6s cubic-bezier(.2,.7,.2,1), opacity 0.4s; }
+    .g-item:hover img { transform: scale(1.04); }
+    .g-item.is-hidden { display: none; }
+    .g-archive { background: var(--warm); padding: 4rem 5vw; }
+    .g-archive .inner { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; }
+    .g-archive h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.5rem); color: var(--black); margin: 0 0 0.35rem; }
+    .g-archive p { font-family: 'DM Sans', sans-serif; color: var(--mid); margin: 0; max-width: 52ch; line-height: 1.6; }
+    /* lightbox */
+    .lb { position: fixed; inset: 0; z-index: 99999; display: none; background: rgba(12,11,9,0.94); align-items: center; justify-content: center; flex-direction: column; padding: 2rem; }
+    .lb.is-open { display: flex; }
+    .lb img { max-width: 92vw; max-height: 82vh; object-fit: contain; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+    .lb-cap { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.04em; color: rgba(255,255,255,0.7); margin-top: 1rem; text-align: center; }
+    .lb-btn { position: absolute; background: none; border: 0; color: rgba(255,255,255,0.8); font-size: 2.4rem; line-height: 1; cursor: pointer; padding: 1rem; }
+    .lb-btn:hover { color: var(--white); }
+    .lb-close { top: 1rem; right: 1.25rem; }
+    .lb-prev { left: 0.5rem; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 0.5rem; top: 50%; transform: translateY(-50%); }
+    body.lb-open { overflow: hidden; }
+    @media (max-width: 900px) { .g-hero-inner { grid-template-columns: 1fr; gap: 1.5rem; } .g-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; } .g-item.wide { grid-column: span 2; } }
+    @media (max-width: 520px) { .g-grid { grid-auto-rows: 130px; } }
+  </style>
 </head>
 <body>
 
@@ -31,26 +83,108 @@
   <a href="contact.html">Get a Quote</a>
 </div>
 
-<section class="page-hero">
-  <div class="container">
-    <span class="eyebrow">Our Work</span>
-    <h1>Portrait Gallery</h1>
-  </div>
-</section>
-
-<section class="section-pad">
-  <div class="container">
-    <div class="gallery-redirect fade-up">
-      <span class="eyebrow">185,000+ Career Portraits</span>
-      <h2 class="section-title">View our full archive</h2>
-      <div class="gold-rule" style="margin:1.5rem auto;"></div>
-      <p>Our complete portfolio of corporate headshots, executive portraits, and group sessions is hosted in our searchable image archive — available for download 24/7.</p>
-      <a href="https://corporateheadshots.photoshelter.com" target="_blank" class="btn btn-primary">Open the Gallery Archive →</a>
+<!-- HERO -->
+<header class="g-hero">
+  <div class="g-hero-inner">
+    <div>
+      <p class="g-kicker">Our work · Est. 1997</p>
+      <h1>Portraits that <em>hold up.</em></h1>
     </div>
+    <p>A selection from the studio and from client offices around the country. Click any image to see it larger.</p>
+  </div>
+</header>
+
+<div class="g-filter" role="group" aria-label="Filter gallery">
+  <span>Show</span>
+  <button class="is-active" data-cat="all">All</button>
+  <button data-cat="studio">Studio</button>
+  <button data-cat="onsite">On location</button>
+  <button data-cat="exec">Executive series</button>
+  <button data-cat="team">Team programs</button>
+  <button data-cat="bts">Behind the scenes</button>
+</div>
+
+<section class="g-grid" id="gallery">
+      <figure class="g-item tall" data-cat="onsite">
+        <a href="images/gallery/os-holder.jpg" data-caption="Executive portrait, on-site window light"><img src="images/gallery/os-holder.jpg" alt="Executive portrait, on-site window light" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-nicole.jpg" data-caption="Studio, grey backdrop"><img src="images/gallery/st-nicole.jpg" alt="Studio, grey backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-barrett.jpg" data-caption="Studio, white backdrop"><img src="images/gallery/st-barrett.jpg" alt="Studio, white backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item wide" data-cat="bts">
+        <a href="images/gallery/bts-onsite.jpg" data-caption="A client conference room, twenty minutes after arrival"><img src="images/gallery/bts-onsite.jpg" alt="A client conference room, twenty minutes after arrival" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-simone.jpg" data-caption="Studio, charcoal backdrop"><img src="images/gallery/st-simone.jpg" alt="Studio, charcoal backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item tall" data-cat="onsite">
+        <a href="images/gallery/os-hannah.jpg" data-caption="On-site, client office"><img src="images/gallery/os-hannah.jpg" alt="On-site, client office" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item wide" data-cat="team">
+        <a href="images/gallery/team-grid.jpg" data-caption="One firm, one look: a multi-year corporate program"><img src="images/gallery/team-grid.jpg" alt="One firm, one look: a multi-year corporate program" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-kijiji.jpg" data-caption="Studio, white backdrop"><img src="images/gallery/st-kijiji.jpg" alt="Studio, white backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-oh.jpg" data-caption="Studio, white backdrop"><img src="images/gallery/st-oh.jpg" alt="Studio, white backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="bts">
+        <a href="images/gallery/bts-review.jpg" data-caption="Same-day review with the client"><img src="images/gallery/bts-review.jpg" alt="Same-day review with the client" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item wide" data-cat="onsite">
+        <a href="images/gallery/os-livingston.jpg" data-caption="Environmental portrait, open office"><img src="images/gallery/os-livingston.jpg" alt="Environmental portrait, open office" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-patel.jpg" data-caption="Studio, warm neutral backdrop"><img src="images/gallery/st-patel.jpg" alt="Studio, warm neutral backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item wide" data-cat="exec">
+        <a href="images/gallery/ex-series.jpg" data-caption="Executive series: headshot, environmental, and full-length in one session"><img src="images/gallery/ex-series.jpg" alt="Executive series: headshot, environmental, and full-length in one session" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-kristen.jpg" data-caption="Studio, grey backdrop"><img src="images/gallery/st-kristen.jpg" alt="Studio, grey backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item wide" data-cat="bts">
+        <a href="images/gallery/bts-studio.jpg" data-caption="The Alexandria studio"><img src="images/gallery/bts-studio.jpg" alt="The Alexandria studio" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="studio">
+        <a href="images/gallery/st-brian.jpg" data-caption="Studio, blue backdrop"><img src="images/gallery/st-brian.jpg" alt="Studio, blue backdrop" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item wide" data-cat="bts">
+        <a href="images/gallery/bts-lobby.jpg" data-caption="Lobby setup, staff cycling through between meetings"><img src="images/gallery/bts-lobby.jpg" alt="Lobby setup, staff cycling through between meetings" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="bts">
+        <a href="images/gallery/bts-hotel.jpg" data-caption="Portable studio at a conference venue"><img src="images/gallery/bts-hotel.jpg" alt="Portable studio at a conference venue" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="bts">
+        <a href="images/gallery/bts-compare.jpg" data-caption="Comparing frames before the client leaves"><img src="images/gallery/bts-compare.jpg" alt="Comparing frames before the client leaves" loading="lazy" /></a>
+      </figure>
+      <figure class="g-item " data-cat="exec">
+        <a href="images/gallery/ex-timessquare.jpg" data-caption="A Rouse portrait on the Nasdaq tower, Times Square"><img src="images/gallery/ex-timessquare.jpg" alt="A Rouse portrait on the Nasdaq tower, Times Square" loading="lazy" /></a>
+      </figure>
+</section>
+
+<section class="g-archive">
+  <div class="inner">
+    <div>
+      <h2>Looking for your own files?</h2>
+      <p>Every session we've delivered since 1997 lives in a searchable archive. Corporate clients can find, preview, and download their portraits there any time.</p>
+    </div>
+    <a href="https://corporateheadshots.photoshelter.com" target="_blank" rel="noopener" class="btn btn-primary">Open the archive</a>
   </div>
 </section>
 
-<!-- FOOTER -->
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="lb-btn lb-close" type="button" aria-label="Close" data-lb-close>&times;</button>
+  <button class="lb-btn lb-prev" type="button" aria-label="Previous">&#8249;</button>
+  <img id="lb-img" src="" alt="" />
+  <div class="lb-cap" id="lb-cap"></div>
+  <button class="lb-btn lb-next" type="button" aria-label="Next">&#8250;</button>
+</div>
+
 <footer>
   <div class="container">
     <div class="footer-inner">
@@ -91,6 +225,42 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="main.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function () {
+  var buttons = document.querySelectorAll('.g-filter button');
+  var items = Array.prototype.slice.call(document.querySelectorAll('.g-item'));
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      buttons.forEach(function (x) { x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+      var c = b.dataset.cat;
+      items.forEach(function (it) { it.classList.toggle('is-hidden', c !== 'all' && it.dataset.cat !== c); });
+    });
+  });
+  var lb = document.getElementById('lb'), img = document.getElementById('lb-img'), cap = document.getElementById('lb-cap');
+  var visible = function () { return items.filter(function (i) { return !i.classList.contains('is-hidden'); }); };
+  var idx = 0;
+  function show(i) {
+    var v = visible(); if (!v.length) return;
+    idx = (i + v.length) % v.length;
+    var a = v[idx].querySelector('a');
+    img.src = a.getAttribute('href'); img.alt = a.dataset.caption || ''; cap.textContent = a.dataset.caption || '';
+    lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false'); document.body.classList.add('lb-open');
+  }
+  function close() { lb.classList.remove('is-open'); lb.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lb-open'); img.src = ''; }
+  items.forEach(function (it) {
+    it.querySelector('a').addEventListener('click', function (e) { e.preventDefault(); show(visible().indexOf(it)); });
+  });
+  lb.querySelector('[data-lb-close]').addEventListener('click', close);
+  lb.querySelector('.lb-prev').addEventListener('click', function () { show(idx - 1); });
+  lb.querySelector('.lb-next').addEventListener('click', function () { show(idx + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1);
+  });
+})();
+</script>
+<script src="main.js"></script>
 </body>
 </html>

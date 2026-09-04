@@ -6,6 +6,18 @@
   <title>For Individuals | Signature Headshot Session | Rouse Photography Group</title>
   <meta name="description" content="Book a Signature Headshot Session at Rouse Photography Group in Alexandria, VA. Fully coached, unlimited time and outfits, same-day selection, retouching included. Pay only for the images you love." />
   <link rel="canonical" href="https://rousephotographygroup.com/individuals" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rouse Photography Group" />
+  <meta property="og:title" content="Signature Headshot Session | Rouse Photography Group" />
+  <meta property="og:description" content="Your headshot, on your terms. A fully coached studio session in Alexandria, VA. Same-day selection, retouching included, pay only for the images you love." />
+  <meta property="og:url" content="https://rousephotographygroup.com/individuals" />
+  <meta property="og:image" content="https://rousephotographygroup.com/images/og/og-individuals.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Signature Headshot Session | Rouse Photography Group" />
+  <meta name="twitter:description" content="Your headshot, on your terms. A fully coached studio session in Alexandria, VA. Same-day selection, retouching included, pay only for the images you love." />
+  <meta name="twitter:image" content="https://rousephotographygroup.com/images/og/og-individuals.jpg" />
   <link rel="stylesheet" href="style.css" />
   <style>
     .fi-hero { padding: calc(var(--nav-h) + 4rem) 5vw 4rem; background: var(--white); }
@@ -68,7 +80,8 @@
     .fi-promise p { font-size: 0.95rem; line-height: 1.6; color: var(--mid); margin: 0; }
 
     /* Studios */
-    .fi-studios { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .fi-studio-feature { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 1.5rem; align-items: stretch; }
+    .fi-studio-feature img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 2; }
     .fi-studio { background: var(--white); border: 1px solid var(--border); padding: 1.75rem; }
     .fi-studio h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; color: var(--black); margin: 0 0 0.4rem; }
     .fi-studio p { font-size: 0.95rem; line-height: 1.6; color: var(--mid); margin: 0; }
@@ -103,7 +116,7 @@
     .btn:focus-visible, .fi-faq summary:focus-visible, .fi-sched-head a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
     @media (max-width: 900px) {
-      .fi-hero-inner, .fi-two, .fi-price-grid, .fi-studios, .fi-band .fi-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .fi-hero-inner, .fi-two, .fi-price-grid, .fi-studio-feature, .fi-band .fi-wrap { grid-template-columns: 1fr; gap: 2rem; }
       .fi-hero-figure { justify-self: start; width: min(100%, 360px); }
       .fi-strip { grid-template-columns: repeat(3, 1fr); }
       .fi-band-actions { justify-self: start; }
@@ -262,7 +275,8 @@
   <div class="fi-wrap">
     <h2>The <em>studio.</em></h2>
     <p class="fi-lede">Sessions take place at our Alexandria studio. Directions and parking details come with your booking confirmation.</p>
-    <div class="fi-studios" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);">
+    <div class="fi-studio-feature">
+      <img src="images/gallery/bts-studio.jpg" alt="The Rouse Photography Group studio in Alexandria, Virginia" loading="lazy" />
       <div class="fi-studio">
         <h3>Alexandria (HQ)</h3>
         <p>4501 Ford Avenue, Suite 107<br />Alexandria, Virginia 22302<br /><a href="https://maps.google.com/?q=4501+Ford+Avenue+Suite+107+Alexandria+VA+22302" target="_blank" rel="noopener">Map and directions</a></p>
