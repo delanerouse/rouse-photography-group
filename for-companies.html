@@ -6,6 +6,26 @@
   <title>For Companies | Rouse Photography Group</title>
   <meta name="description" content="Nationwide corporate headshot programs for organizations of any size. On-site photography delivered around your schedule." />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .fc-bts { padding: 0 0 5rem; }
+    .fc-bts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .fc-bts-grid figure { margin: 0; }
+    .fc-bts-grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+    .fc-bts-grid figcaption { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; line-height: 1.5; color: var(--mid); margin-top: 0.75rem; padding-top: 0.6rem; border-top: 1px solid var(--border); }
+    .fc-consist-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 5rem; align-items: center; }
+    .fc-consist-img { position: relative; }
+    .fc-consist-img::before { content: ''; position: absolute; inset: 1.25rem -1.25rem -1.25rem 1.25rem; border: 1px solid var(--gold); }
+    .fc-consist-img img { position: relative; display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .fc-consist-copy p { font-family: 'DM Sans', sans-serif; font-size: 1.02rem; line-height: 1.75; color: var(--mid); margin: 0 0 1rem; }
+    .fc-review { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 4rem; }
+    .fc-review figure { margin: 0; }
+    .fc-review img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+    .fc-review-cap { grid-column: 1 / -1; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.6; color: var(--mid); max-width: 62ch; margin: 0.25rem 0 0; }
+    @media (max-width: 900px) {
+      .fc-bts-grid, .fc-consist-grid, .fc-review { grid-template-columns: 1fr; gap: 2rem; }
+      .fc-consist-img { max-width: 480px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -47,6 +67,17 @@
     <div style="max-width:720px;" class="fade-up">
       <p style="font-size:1.05rem;color:var(--mid);line-height:1.8;margin-bottom:1rem;">We are the most professional, most personalized solution on the market, because we make it our mission to provide exactly what our customers need. We bring the studio to you — with portable lighting, backgrounds, and a laptop — producing studio-quality images at your location with the least disruption to your business.</p>
       <p style="font-size:1.05rem;color:var(--mid);line-height:1.8;">Anywhere in the world. Convenient and efficient.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ON SITE, IN PRACTICE -->
+<section class="fc-bts">
+  <div class="container">
+    <div class="fc-bts-grid">
+      <figure><img src="images/companies/bts-onsite-shoot.jpg" alt="Rouse photographer shooting an executive portrait in a client conference room" loading="lazy" /><figcaption>A conference room becomes a studio in about twenty minutes.</figcaption></figure>
+      <figure><img src="images/companies/bts-lobby-setup.jpg" alt="Portable studio set up in an office lobby with staff waiting their turn" loading="lazy" /><figcaption>Staff cycle through between meetings. Three to five minutes each.</figcaption></figure>
+      <figure><img src="images/companies/bts-hotel-setup.jpg" alt="Portable lighting setup at a conference venue" loading="lazy" /><figcaption>Same lighting, same look, whether it's your office or a conference hotel.</figcaption></figure>
     </div>
   </div>
 </section>
@@ -106,6 +137,22 @@
 </section>
 
 <!-- PROCESS -->
+<!-- CONSISTENCY -->
+<section class="section-pad fc-consist">
+  <div class="container">
+    <div class="fc-consist-grid">
+      <div class="fc-consist-img"><img src="images/companies/consistency-grid.jpg" alt="Grid of matching corporate portraits for one firm" loading="lazy" /></div>
+      <div class="fc-consist-copy fade-up">
+        <span class="eyebrow">Brand Consistency</span>
+        <h2 class="section-title" style="margin-bottom:0.75rem;">One firm.<br>One look.</h2>
+        <div class="gold-rule" style="margin-bottom:1.5rem;"></div>
+        <p>New partner in Chicago, new associate in DC, a lateral hire three years from now. Every portrait matches the last one, because we keep your lighting, backdrop, and retouching specifications on file and every photographer in our network shoots to them.</p>
+        <p>Your website, your bios, and your pitch decks stay uniform without anyone on your marketing team chasing it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section-pad">
   <div class="container">
     <span class="eyebrow fade-up">How It Works</span>
@@ -127,6 +174,11 @@
         <h3>You Sit Back</h3>
         <p>Our team handles everything — scheduling, setup, session management, and delivery. You get exceptional portraits; your team barely feels a thing.</p>
       </div>
+    </div>
+    <div class="fc-review">
+      <figure><img src="images/companies/review-client.jpg" alt="Photographer reviewing portraits with a client on a laptop" loading="lazy" /></figure>
+      <figure><img src="images/companies/review-outdoors.jpg" alt="Photographer and subject comparing two frames on a laptop" loading="lazy" /></figure>
+      <p class="fc-review-cap">We shoot tethered, so every person sees their frames before they walk away. Selection happens on the spot, and nobody leaves unsure.</p>
     </div>
   </div>
 </section>
