@@ -8,13 +8,22 @@
   <link rel="canonical" href="https://rousephotographygroup.com/individuals" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .fi-hero { padding: calc(var(--nav-h) + 6rem) 5vw 4rem; background: var(--white); }
-    .fi-hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; align-items: end; }
+    .fi-hero { padding: calc(var(--nav-h) + 4rem) 5vw 4rem; background: var(--white); }
+    .fi-hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; align-items: center; }
     .fi-kicker { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
-    .fi-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.8rem, 5.6vw, 4.8rem); line-height: 1.0; letter-spacing: -0.01em; color: var(--black); margin: 0; }
+    .fi-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.8rem, 5.6vw, 4.8rem); line-height: 1.0; letter-spacing: -0.01em; color: var(--black); margin: 0 0 1.5rem; }
     .fi-hero h1 em { font-style: italic; font-weight: 400; color: var(--gold); }
-    .fi-hero-side p { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; line-height: 1.65; color: var(--mid); margin: 0 0 1.75rem; max-width: 38ch; }
-    .fi-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .fi-hero-p { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; line-height: 1.65; color: var(--mid); margin: 0 0 1.75rem; max-width: 44ch; }
+    .fi-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.25rem; }
+    .fi-hero-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--mid); }
+    .fi-hero-meta b { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--black); margin-right: 0.3rem; }
+    .fi-hero-figure { position: relative; margin: 0; justify-self: end; width: min(100%, 440px); }
+    .fi-hero-img { position: relative; }
+    .fi-hero-img::before { content: ''; position: absolute; inset: 1.25rem -1.25rem -1.25rem 1.25rem; border: 1px solid var(--gold); z-index: 0; }
+    .fi-hero-img img { position: relative; z-index: 1; display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+    .fi-hero-figure figcaption { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin-top: 2.25rem; }
+    .fi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; background: var(--black); }
+    .fi-strip img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
 
     .fi-section { padding: 6rem 5vw; }
     .fi-section.warm { background: var(--warm); }
@@ -95,6 +104,8 @@
 
     @media (max-width: 900px) {
       .fi-hero-inner, .fi-two, .fi-price-grid, .fi-studios, .fi-band .fi-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .fi-hero-figure { justify-self: start; width: min(100%, 360px); }
+      .fi-strip { grid-template-columns: repeat(5, 1fr); }
       .fi-band-actions { justify-self: start; }
       .fi-promises { grid-template-columns: 1fr; }
       .fi-promise + .fi-promise { padding-left: 0; border-left: 0; }
@@ -138,19 +149,35 @@
 <!-- HERO -->
 <header class="fi-hero">
   <div class="fi-hero-inner">
-    <div>
+    <div class="fi-hero-copy">
       <p class="fi-kicker">For individuals · Signature Headshot Session</p>
       <h1>Your headshot,<br /><em>on your terms.</em></h1>
-    </div>
-    <div class="fi-hero-side">
-      <p>For attorneys, consultants, executives, and anyone whose face is part of the pitch. No packages, no rush, no paying for images you don't love.</p>
+      <p class="fi-hero-p">For attorneys, consultants, executives, and anyone whose face is part of the pitch. No packages, no rush, no paying for images you don't love.</p>
       <div class="fi-hero-actions">
         <a href="#book" class="btn btn-primary">Book a session</a>
         <a href="#pricing" class="btn btn-outline">See pricing</a>
       </div>
+      <div class="fi-hero-meta">
+        <span><b>1 to 2 hrs</b> in the studio</span>
+        <span><b>Same-day</b> selection</span>
+        <span><b>$195</b> per finished image</span>
+      </div>
     </div>
+    <figure class="fi-hero-figure">
+      <div class="fi-hero-img"><img src="images/individuals/hero-simone.jpg" alt="Studio portrait of a woman in a blue blazer against a charcoal backdrop" width="1000" height="1250" /></div>
+      <figcaption>Signature Session, Alexandria studio</figcaption>
+    </figure>
   </div>
 </header>
+
+<!-- PORTRAIT STRIP -->
+<div class="fi-strip" aria-label="Recent Signature Session portraits">
+  <img src="images/individuals/s-brian.jpg" alt="Executive portrait, blue backdrop" loading="lazy" />
+  <img src="images/individuals/s-kristen.jpg" alt="Studio portrait, grey backdrop" loading="lazy" />
+  <img src="images/individuals/s-oh.jpg" alt="Studio portrait, white backdrop" loading="lazy" />
+  <img src="images/individuals/s-patel.jpg" alt="Studio portrait, warm neutral backdrop" loading="lazy" />
+  <img src="images/individuals/s-hannah.jpg" alt="On-site portrait, office window light" loading="lazy" />
+</div>
 
 <!-- THE SESSION -->
 <section class="fi-section">
