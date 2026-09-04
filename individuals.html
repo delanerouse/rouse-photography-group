@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Individuals | Signature Headshot Session | Rouse Photography Group</title>
+  <meta name="description" content="Book a Signature Headshot Session at Rouse Photography Group in Alexandria, VA. Fully coached, unlimited time and outfits, same-day selection, retouching included. Pay only for the images you love." />
+  <link rel="canonical" href="https://rousephotographygroup.com/individuals" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .fi-hero { padding: calc(var(--nav-h) + 6rem) 5vw 4rem; background: var(--white); }
+    .fi-hero-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 4rem; align-items: end; }
+    .fi-kicker { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .fi-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.8rem, 5.6vw, 4.8rem); line-height: 1.0; letter-spacing: -0.01em; color: var(--black); margin: 0; }
+    .fi-hero h1 em { font-style: italic; font-weight: 400; color: var(--gold); }
+    .fi-hero-side p { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; line-height: 1.65; color: var(--mid); margin: 0 0 1.75rem; max-width: 38ch; }
+    .fi-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+    .fi-section { padding: 6rem 5vw; }
+    .fi-section.warm { background: var(--warm); }
+    .fi-wrap { max-width: 1180px; margin: 0 auto; }
+    .fi-section h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.1; color: var(--black); margin: 0 0 0.75rem; }
+    .fi-section h2 em { font-style: italic; font-weight: 400; }
+    .fi-lede { font-family: 'DM Sans', sans-serif; font-size: 1rem; line-height: 1.65; color: var(--mid); max-width: 62ch; margin: 0 0 3rem; }
+    .fi-section p, .fi-section li { font-family: 'DM Sans', sans-serif; }
+
+    /* Session: two columns */
+    .fi-two { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 4rem; align-items: start; }
+    .fi-two h3 { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin: 0 0 1.25rem; }
+    .fi-two p { font-size: 1rem; line-height: 1.7; color: var(--mid); margin: 0 0 1.1rem; }
+    .fi-two p strong { color: var(--black); font-weight: 500; }
+    .fi-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+    .fi-list li { display: grid; grid-template-columns: 1.5rem 1fr; gap: 0.75rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border); font-size: 1rem; line-height: 1.5; color: var(--black); }
+    .fi-list li::before { content: '+'; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; line-height: 1; color: var(--gold); }
+    .fi-list li span { color: var(--mid); }
+    .fi-list li b { color: var(--black); font-weight: 500; }
+
+    /* Pricing */
+    .fi-price-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 1.5rem; align-items: stretch; }
+    .fi-card { background: var(--white); border: 1px solid var(--border); padding: 2.25rem 2.25rem 2rem; }
+    .fi-card.accent { border-color: var(--black); border-top: 3px solid var(--gold); }
+    .fi-card h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.6rem; color: var(--black); margin: 0 0 0.35rem; }
+    .fi-card .sub { font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--mid); margin: 0 0 1.5rem; line-height: 1.55; }
+    .fi-rows { border-top: 1px solid var(--border); }
+    .fi-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: 0.97rem; color: var(--black); }
+    .fi-row small { display: block; font-size: 0.8rem; color: var(--mid); margin-top: 0.15rem; }
+    .fi-row .amt { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; white-space: nowrap; }
+    .fi-big { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 4.2rem); font-weight: 300; line-height: 1; color: var(--black); margin: 0.25rem 0 0.25rem; }
+    .fi-big small { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-left: 0.5rem; }
+    .fi-note { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; line-height: 1.6; color: var(--mid); margin: 1.25rem 0 0; }
+    .fi-note a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
+
+    /* Promises */
+    .fi-promises { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--border); }
+    .fi-promise { padding: 2rem 2rem 2rem 0; border-bottom: 1px solid var(--border); }
+    .fi-promise + .fi-promise { padding-left: 2rem; border-left: 1px solid var(--border); }
+    .fi-promise .n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; line-height: 1; color: var(--gold); margin-bottom: 1rem; }
+    .fi-promise h3 { font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; color: var(--black); margin: 0 0 0.5rem; }
+    .fi-promise p { font-size: 0.95rem; line-height: 1.6; color: var(--mid); margin: 0; }
+
+    /* Studios */
+    .fi-studios { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .fi-studio { background: var(--white); border: 1px solid var(--border); padding: 1.75rem; }
+    .fi-studio h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.5rem; color: var(--black); margin: 0 0 0.4rem; }
+    .fi-studio p { font-size: 0.95rem; line-height: 1.6; color: var(--mid); margin: 0; }
+    .fi-studio a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
+
+    /* FAQ */
+    .fi-faq { border-top: 1px solid var(--border); max-width: 820px; }
+    .fi-faq details { border-bottom: 1px solid var(--border); }
+    .fi-faq summary { cursor: pointer; list-style: none; padding: 1.25rem 0; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; color: var(--black); display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .fi-faq summary::-webkit-details-marker { display: none; }
+    .fi-faq summary::after { content: '+'; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--gold); transition: transform 0.2s; }
+    .fi-faq details[open] summary::after { transform: rotate(45deg); }
+    .fi-faq p { font-size: 0.95rem; line-height: 1.65; color: var(--mid); margin: 0 0 1.25rem; max-width: 66ch; }
+    .fi-faq a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
+
+    /* Booking */
+    .fi-sched-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 1.5rem; }
+    .fi-sched-head .fi-lede { margin: 0; }
+    .fi-sched-head a { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); white-space: nowrap; border-bottom: 1px solid var(--gold); padding-bottom: 2px; text-decoration: none; }
+    .fi-sched-frame { background: var(--white); border: 1px solid var(--border); }
+    .fi-sched-frame iframe { display: block; width: 100%; min-height: 1000px; border: 0; }
+
+    /* Band */
+    .fi-band { background: var(--black); color: var(--white); padding: 5rem 5vw; }
+    .fi-band .fi-wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 3rem; align-items: center; }
+    .fi-band h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 3.4vw, 2.9rem); line-height: 1.1; color: var(--white); margin: 0 0 0.75rem; }
+    .fi-band h2 em { font-style: italic; font-weight: 400; }
+    .fi-band p { font-family: 'DM Sans', sans-serif; font-size: 1rem; line-height: 1.65; color: var(--light); margin: 0; max-width: 52ch; }
+    .fi-band-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-self: end; }
+    .fi-band .btn-outline { color: var(--white); border-color: var(--white); }
+    .fi-band .btn-outline:hover { background: var(--white); color: var(--black); }
+    .btn:focus-visible, .fi-faq summary:focus-visible, .fi-sched-head a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    @media (max-width: 900px) {
+      .fi-hero-inner, .fi-two, .fi-price-grid, .fi-studios, .fi-band .fi-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .fi-band-actions { justify-self: start; }
+      .fi-promises { grid-template-columns: 1fr; }
+      .fi-promise + .fi-promise { padding-left: 0; border-left: 0; }
+      .fi-sched-head { flex-direction: column; align-items: start; gap: 1rem; }
+      .fi-section { padding: 4rem 5vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    R(O)USE
+    <span>Photography Group</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="for-companies.html">For Companies</a></li>
+    <li><a href="individuals.html" class="active">For Individuals</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="for-companies.html">For Companies</a>
+  <a href="individuals.html">For Individuals</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+  <a href="contact.html">Get a Quote</a>
+</div>
+
+<!-- HERO -->
+<header class="fi-hero">
+  <div class="fi-hero-inner">
+    <div>
+      <p class="fi-kicker">For individuals · Signature Headshot Session</p>
+      <h1>Your headshot,<br /><em>on your terms.</em></h1>
+    </div>
+    <div class="fi-hero-side">
+      <p>For attorneys, consultants, executives, and anyone whose face is part of the pitch. No packages, no rush, no paying for images you don't love.</p>
+      <div class="fi-hero-actions">
+        <a href="#book" class="btn btn-primary">Book a session</a>
+        <a href="#pricing" class="btn btn-outline">See pricing</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- THE SESSION -->
+<section class="fi-section">
+  <div class="fi-wrap">
+    <h2>The Signature <em>Session.</em></h2>
+    <p class="fi-lede">Most sessions run one to two hours. We'll spend as much time as it takes to get frames you're proud of.</p>
+    <div class="fi-two">
+      <div>
+        <h3>How we work</h3>
+        <p>We shoot tethered to a large monitor, so you see every frame as it's made. You're not guessing at what the camera caught. We adjust posture, expression, and light together until it's right.</p>
+        <p><strong>You're in control.</strong> You decide how many outfits to bring, how long we keep going, and which images get finished. Your session fee covers the time. You pay for the images you choose, and nothing else.</p>
+        <p>Selection happens the same day, in the studio, on the big screen. You leave knowing exactly what you're getting.</p>
+      </div>
+      <div>
+        <h3>What you get</h3>
+        <ul class="fi-list">
+          <li><div><b>A fully coached session</b><span>, including facial expression coaching. Nobody is born knowing how to look natural in front of a camera. That's our job.</span></div></li>
+          <li><div><b>Unlimited time and outfits</b><span>, within reason. Bring three looks or one. We don't clock-watch.</span></div></li>
+          <li><div><b>Same-day selection</b><span> on a large monitor with your photographer.</span></div></li>
+          <li><div><b>Professional retouching included</b><span> on every image you choose. Stray hairs, blemishes, teeth, softened lines. You still look like you.</span></div></li>
+          <li><div><b>High-resolution files</b><span>, sized for print and web, delivered fast.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="fi-section warm" id="pricing">
+  <div class="fi-wrap">
+    <h2>Simple <em>pricing.</em></h2>
+    <p class="fi-lede">One session fee for the time, one flat rate per finished image. No tiers, no bundles, no upsell at the end.</p>
+    <div class="fi-price-grid">
+      <div class="fi-card">
+        <h3>Session fee</h3>
+        <p class="sub">Covers the full coached session, same-day selection, and studio time. Paid when you book.</p>
+        <div class="fi-rows">
+          <div class="fi-row"><span>Weekday session<small>Monday through Friday</small></span><span class="amt">$290</span></div>
+          <div class="fi-row"><span>Weekend session<small>Saturday and Sunday</small></span><span class="amt">$490</span></div>
+          <div class="fi-row"><span>Add professional hair and makeup<small>Artist on site before your session</small></span><span class="amt">+ $300</span></div>
+        </div>
+      </div>
+      <div class="fi-card accent">
+        <h3>Finished images</h3>
+        <p class="sub">Choose as many or as few as you want after the session. Retouching, high-resolution files, and delivery are included in the price.</p>
+        <div class="fi-big">$195<small>per image</small></div>
+        <p class="fi-note"><strong style="color:var(--black);font-weight:500;">Love it or leave it.</strong> If you don't love what you see on the screen, walk away and owe nothing beyond the session fee. No hard feelings. Really.</p>
+      </div>
+    </div>
+    <p class="fi-note">Sessions are booked and paid through our online scheduler. Rescheduling is free with five business days' notice. Full details in our <a href="cancellations.html">cancellation and rescheduling policy</a>.</p>
+  </div>
+</section>
+
+<!-- PROMISES -->
+<section class="fi-section">
+  <div class="fi-wrap">
+    <h2>Why people <em>come back.</em></h2>
+    <p class="fi-lede">Most of our individual clients found us because a colleague's headshot looked better than theirs. Here's what they tell us mattered.</p>
+    <div class="fi-promises">
+      <div class="fi-promise">
+        <div class="n">1</div>
+        <h3>Same-day selection</h3>
+        <p>No waiting on proofs. You review and pick your images before you leave the studio, with your photographer beside you.</p>
+      </div>
+      <div class="fi-promise">
+        <div class="n">2</div>
+        <h3>Retouching that stays honest</h3>
+        <p>We soften lines, whiten teeth, remove stray hairs, and clean up blemishes. We don't sculpt you into someone else.</p>
+      </div>
+      <div class="fi-promise">
+        <div class="n">3</div>
+        <h3>Nothing to lose</h3>
+        <p>You pay only for images you choose. If none of them are right, you don't buy any. Twenty-nine years in, that almost never happens.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="fi-section warm">
+  <div class="fi-wrap">
+    <h2>The <em>studio.</em></h2>
+    <p class="fi-lede">Sessions take place at our Alexandria studio. Directions and parking details come with your booking confirmation.</p>
+    <div class="fi-studios" style="grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);">
+      <div class="fi-studio">
+        <h3>Alexandria (HQ)</h3>
+        <p>4501 Ford Avenue, Suite 107<br />Alexandria, Virginia 22302<br /><a href="https://maps.google.com/?q=4501+Ford+Avenue+Suite+107+Alexandria+VA+22302" target="_blank" rel="noopener">Map and directions</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="fi-section">
+  <div class="fi-wrap">
+    <h2>Good <em>questions.</em></h2>
+    <div class="fi-faq">
+      <details>
+        <summary>What should I wear?</summary>
+        <p>Solid colors over patterns, and something you feel like yourself in. Bring two or three options and we'll pick together. For most professional headshots, a jacket or structured layer photographs well. Avoid logos and very thin stripes.</p>
+      </details>
+      <details>
+        <summary>How long does it take?</summary>
+        <p>Plan for one to two hours including selection. If you're on a tight schedule, tell us when you arrive and we'll work efficiently. If you want to keep going, we keep going.</p>
+      </details>
+      <details>
+        <summary>How many images do most people choose?</summary>
+        <p>Two to four is typical: a primary headshot, a second expression or crop, and sometimes a different outfit for a different use. There's no minimum.</p>
+      </details>
+      <details>
+        <summary>How does hair and makeup work?</summary>
+        <p>A professional artist meets you at the studio before your session. It adds about 45 minutes and $300. It's optional, and it makes a visible difference on camera for most people, men included.</p>
+      </details>
+      <details>
+        <summary>When will I get my files?</summary>
+        <p>Retouched, high-resolution files are delivered by download link, typically within a few business days of your session. Need them faster for a deadline? Tell us when you book.</p>
+      </details>
+      <details>
+        <summary>Can my firm pay for this?</summary>
+        <p>Often, yes. Many firms reimburse professional headshots or already have a corporate account with us. If your organization needs portraits for several people, our <a href="for-companies.html">corporate programs</a> are usually the better fit.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section class="fi-section warm" id="book">
+  <div class="fi-wrap">
+    <div class="fi-sched-head">
+      <div>
+        <h2>Book your <em>session.</em></h2>
+        <p class="fi-lede">Choose a session type, then a time. You'll pay the session fee when you book and get a confirmation by email.</p>
+      </div>
+      <a href="https://dcheadshots.as.me/schedule/45d03366/?categories[]=%2A%2A%2ADC/ALEXANDRIA%20STUDIO%2A%2A%2A%20%7C%20Signature%20Sessions" target="_blank" rel="noopener">Open in a new window</a>
+    </div>
+    <div class="fi-sched-frame">
+      <iframe src="https://dcheadshots.as.me/schedule/45d03366/?categories[]=%2A%2A%2ADC/ALEXANDRIA%20STUDIO%2A%2A%2A%20%7C%20Signature%20Sessions" title="Book a Signature Headshot Session" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="fi-band">
+  <div class="fi-wrap">
+    <div>
+      <h2>Photographing a <em>whole team?</em></h2>
+      <p>On-site sessions at your office, consistent style across every location, and a coordinator who handles the logistics. That's a different program, built for organizations.</p>
+    </div>
+    <div class="fi-band-actions">
+      <a href="for-companies.html" class="btn btn-gold">For Companies</a>
+      <a href="https://calendly.com/dcheadshots/consult15" class="btn btn-outline" target="_blank" rel="noopener">Book a 15-minute consult</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">R(O)USE Photography Group</div>
+        <p class="footer-desc">America's premier corporate headshot studio. On-site photography for the organizations that set the standard.</p>
+        <p class="footer-contact-line">4501 Ford Avenue, Suite 107</p>
+        <p class="footer-contact-line">Alexandria, Virginia 22302</p>
+        <p class="footer-contact-line" style="margin-top:0.5rem;"><a href="tel:2022573918">202.257.3918</a></p>
+        <p class="footer-contact-line"><a href="mailto:delane@rousephotographygroup.com">delane@rousephotographygroup.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h5>Navigate</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="for-companies.html">For Companies</a></li>
+          <li><a href="individuals.html">For Individuals</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="for-companies.html">Corporate Programs</a></li>
+          <li><a href="individuals.html">Signature Sessions</a></li>
+          <li><a href="for-companies.html">Government &amp; Military</a></li>
+          <li><a href="local-photographers.html">Local Photographer List</a></li>
+          <li><a href="corporate-accounts.html">Corporate Account Scheduling</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Rouse Photography Group, LLC. All rights reserved.</span>
+      <span>Washington DC · Alexandria, VA</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
