@@ -22,7 +22,7 @@
     .fi-hero-img::before { content: ''; position: absolute; inset: 1.25rem -1.25rem -1.25rem 1.25rem; border: 1px solid var(--gold); z-index: 0; }
     .fi-hero-img img { position: relative; z-index: 1; display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
     .fi-hero-figure figcaption { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); margin-top: 2.25rem; }
-    .fi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; background: var(--black); }
+    .fi-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; background: var(--black); }
     .fi-strip img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
 
     .fi-section { padding: 6rem 5vw; }
@@ -105,7 +105,7 @@
     @media (max-width: 900px) {
       .fi-hero-inner, .fi-two, .fi-price-grid, .fi-studios, .fi-band .fi-wrap { grid-template-columns: 1fr; gap: 2rem; }
       .fi-hero-figure { justify-self: start; width: min(100%, 360px); }
-      .fi-strip { grid-template-columns: repeat(5, 1fr); }
+      .fi-strip { grid-template-columns: repeat(3, 1fr); }
       .fi-band-actions { justify-self: start; }
       .fi-promises { grid-template-columns: 1fr; }
       .fi-promise + .fi-promise { padding-left: 0; border-left: 0; }
@@ -164,7 +164,7 @@
       </div>
     </div>
     <figure class="fi-hero-figure">
-      <div class="fi-hero-img"><img src="images/individuals/hero-simone.jpg" alt="Studio portrait of a woman in a blue blazer against a charcoal backdrop" width="1000" height="1250" /></div>
+      <div class="fi-hero-img"><img src="images/individuals/hero-nicole.jpg" alt="Studio portrait of a physician in a white coat against a grey backdrop" width="1000" height="1250" /></div>
       <figcaption>Signature Session, Alexandria studio</figcaption>
     </figure>
   </div>
@@ -172,9 +172,10 @@
 
 <!-- PORTRAIT STRIP -->
 <div class="fi-strip" aria-label="Recent Signature Session portraits">
-  <img src="images/individuals/s-brian.jpg" alt="Executive portrait, blue backdrop" loading="lazy" />
-  <img src="images/individuals/s-kristen.jpg" alt="Studio portrait, grey backdrop" loading="lazy" />
+  <img src="images/individuals/s-barrett.jpg" alt="Executive portrait, white backdrop" loading="lazy" />
+  <img src="images/individuals/hero-simone.jpg" alt="Studio portrait, charcoal backdrop" loading="lazy" />
   <img src="images/individuals/s-oh.jpg" alt="Studio portrait, white backdrop" loading="lazy" />
+  <img src="images/individuals/s-kijiji.jpg" alt="Executive portrait in a white suit, white backdrop" loading="lazy" />
   <img src="images/individuals/s-patel.jpg" alt="Studio portrait, warm neutral backdrop" loading="lazy" />
   <img src="images/individuals/s-hannah.jpg" alt="On-site portrait, office window light" loading="lazy" />
 </div>
