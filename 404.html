@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found | Rouse Photography Group</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .nf { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--nav-h) + 4rem) 5vw 5rem; }
+    .nf-inner { max-width: 1180px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 4rem; align-items: center; }
+    .nf-kicker { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .nf h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.6rem, 5.2vw, 4.4rem); line-height: 1.02; color: var(--black); margin: 0 0 1.25rem; }
+    .nf h1 em { font-style: italic; font-weight: 400; color: var(--gold); }
+    .nf p { font-family: 'DM Sans', sans-serif; font-size: 1.05rem; line-height: 1.65; color: var(--mid); margin: 0 0 1.5rem; max-width: 46ch; }
+    .nf-links { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+    .nf-links li { border-bottom: 1px solid var(--border); }
+    .nf-links a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 1.1rem 0; text-decoration: none; color: var(--black); font-family: 'DM Sans', sans-serif; }
+    .nf-links a strong { font-weight: 500; font-size: 1.05rem; }
+    .nf-links a span { font-size: 0.9rem; color: var(--mid); text-align: right; }
+    .nf-links a:hover strong { color: var(--gold); }
+    .nf-help { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--mid); margin-top: 1.5rem; }
+    .nf-help a { color: var(--black); border-bottom: 1px solid var(--gold); text-decoration: none; }
+    @media (max-width: 900px) { .nf-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    R(O)USE
+    <span>Photography Group</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/for-companies">For Companies</a></li>
+    <li><a href="/individuals">For Individuals</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <div class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="/">Home</a>
+  <a href="/for-companies">For Companies</a>
+  <a href="/individuals">For Individuals</a>
+  <a href="/gallery">Gallery</a>
+  <a href="/about">About Us</a>
+  <a href="/contact">Contact</a>
+  <a href="/contact">Get a Quote</a>
+</div>
+
+<main class="nf">
+  <div class="nf-inner">
+    <div>
+      <p class="nf-kicker">404 · Page not found</p>
+      <h1>That page <em>has moved.</em></h1>
+      <p>DC Corporate Headshots is now part of Rouse Photography Group, and a few older links didn't survive the move. Here's where you most likely wanted to go.</p>
+      <p class="nf-help">Still stuck? Email <a href="mailto:jessie@rousephotographygroup.com">jessie@rousephotographygroup.com</a> or call <a href="tel:2022573918">202.257.3918</a>.</p>
+    </div>
+    <ul class="nf-links">
+      <li><a href="/corporate-accounts"><strong>Corporate Account Scheduling Center</strong><span>Book studio or on-site sessions in DC</span></a></li>
+      <li><a href="/local-photographers"><strong>Local Photographer List</strong><span>Request a session in any of 44 cities</span></a></li>
+      <li><a href="/individuals"><strong>Signature Headshot Session</strong><span>Book for yourself</span></a></li>
+      <li><a href="/cancellations"><strong>Cancellation Policy</strong><span>Rescheduling and cancellation terms</span></a></li>
+      <li><a href="/for-companies"><strong>For Companies</strong><span>Corporate programs and how we work</span></a></li>
+    </ul>
+  </div>
+</main>
+
+<script src="/main.js"></script>
+</body>
+</html>
