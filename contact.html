@@ -18,6 +18,10 @@
   <meta name="twitter:description" content="Request a quote or book a 15-minute consultation with Rouse Photography Group." />
   <meta name="twitter:image" content="https://rousephotographygroup.com/images/og/og-home.jpg" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .hp-field { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    #contact-form select { width:100%; }
+  </style>
 </head>
 <body>
 
@@ -95,17 +99,50 @@
       </div>
 
       <div class="contact-form fade-up">
-        <iframe
-          class="airtable-embed"
-          src="https://airtable.com/embed/appxz89GW103YI3J8/shrzmkw8T1qSHwQZM"
-          title="Send us a message"
-          loading="lazy"
-          width="100%"
-          height="1000"
-          style="background:transparent;border:0;display:block;border-radius:4px;"></iframe>
-        <p style="color:var(--mid);font-size:0.85rem;margin-top:1.25rem;">
-          Form not loading? Call us at <a href="tel:2022573918" style="color:var(--gold);">202.257.3918</a> and we'll take it from there.
-        </p>
+        <form id="contact-form" novalidate>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;margin-bottom:1.5rem;">Send us a message</h3>
+
+          <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" id="name" name="name_" placeholder="Your first name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label for="company">Company / Organization</label>
+            <input type="text" id="company" name="company" placeholder="Your organization" />
+          </div>
+          <div class="form-group">
+            <label for="topic">What can we help with?</label>
+            <select id="topic" name="topic">
+              <option value="">Select one</option>
+              <option>On-site session for our team</option>
+              <option>Studio Session for 1 Person</option>
+              <option>Ongoing Studio Sessions for our local Office</option>
+              <option>Something else...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">How can we help?</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project, number of people, location, timeline..."></textarea>
+          </div>
+
+          <!-- Honeypot. Hidden from people, catches bots. -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <p class="form-consent">This form collects information we will use to respond to your inquiry. We will not share or sell your personal information.</p>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
+          <p id="form-status" role="status" aria-live="polite" style="margin-top:1rem;font-size:0.9rem;display:none;"></p>
+        </form>
       </div>
 
     </div>
@@ -154,5 +191,68 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="main.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var status = document.getElementById('form-status');
+  var button = form.querySelector('button[type="submit"]');
+
+  function show(msg, ok) {
+    status.textContent = msg;
+    status.style.color = ok ? 'var(--gold)' : '#b00020';
+    status.style.display = 'block';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var name = form.name_.value.trim();
+    var email = form.email.value.trim();
+    if (!name || !email) {
+      show('Please add your name and email so we can reply.', false);
+      return;
+    }
+
+    var payload = {
+      name: name,
+      email: email,
+      phone: form.phone.value.trim(),
+      company: form.company.value.trim(),
+      topic: form.topic.value,
+      message: form.message.value.trim(),
+      website: form.website.value
+    };
+
+    button.disabled = true;
+    var original = button.textContent;
+    button.textContent = 'Sending...';
+    show('', true);
+    status.style.display = 'none';
+
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (data) {
+        if (data && data.ok) {
+          form.innerHTML =
+            '<h3 style="font-family:\'Cormorant Garamond\',serif;font-size:1.6rem;font-weight:300;margin-bottom:0.75rem;">Thank you.</h3>' +
+            '<p>Your message is with us. Someone will reply within one business day.</p>' +
+            '<p style="color:var(--mid);font-size:0.9rem;margin-top:1rem;">If it is time sensitive, call us at <a href="tel:2022573918" style="color:var(--gold);">202.257.3918</a>.</p>';
+          return;
+        }
+        throw new Error('failed');
+      })
+      .catch(function () {
+        button.disabled = false;
+        button.textContent = original;
+        show('Something went wrong sending that. Please call us at 202.257.3918 or try again in a moment.', false);
+      });
+  });
+})();
+</script>
 </body>
 </html>
