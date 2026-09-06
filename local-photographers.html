@@ -521,10 +521,10 @@
     <section class="lp-region is-collapsed" id="region-southwest">
       <button class="lp-region-title" type="button" aria-expanded="false"><span>Texas and Southwest</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
       <div class="lp-grid">
-      <div class="lp-card" data-types="location studio" data-market="Austin" data-name="Korey H.">
+      <div class="lp-card" data-types="location studio" data-market="Austin" data-name="Bridgette B.">
         <div class="lp-city">Austin</div>
         <div class="lp-type">On location + studio</div>
-        <div class="lp-name">Korey H.</div>
+        <div class="lp-name">Bridgette B.</div>
         <div class="lp-actions">
           <button class="lp-request" type="button">Request a session</button>
         </div>
@@ -722,7 +722,7 @@
   </div>
 </section>
 
-<p class="lp-meta">Updated September 3, 2026. Corporate account clients can also visit the <a href="corporate-accounts.html">Corporate Account Scheduling Center</a>.</p>
+<p class="lp-meta">Updated <span id="lp-updated"></span>. Corporate account clients can also visit the <a href="corporate-accounts.html">Corporate Account Scheduling Center</a>.</p>
 
 <!-- REQUEST MODAL -->
 <div class="lp-modal" id="lp-modal" aria-hidden="true">
@@ -873,6 +873,7 @@
   });
 })();
 </script>
+<script>document.getElementById('lp-updated').textContent = new Date(document.lastModified).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});</script>
 <script src="main.js"></script>
 </body>
 </html>
