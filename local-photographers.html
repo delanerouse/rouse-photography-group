@@ -184,6 +184,44 @@
     .lp-meta a { color: var(--mid); }
     .btn:focus-visible, .lp-filter button:focus-visible, .lp-contact a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
+
+    /* Search */
+    .lp-search { position: relative; max-width: 560px; margin: 0 0 1rem; }
+    .lp-search input {
+      width: 100%; box-sizing: border-box; -webkit-appearance: none; border-radius: 0;
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--black);
+      background: var(--white); border: 1px solid var(--border);
+      padding: 1rem 2.9rem 1rem 3rem;
+    }
+    .lp-search input::placeholder { color: var(--light); }
+    .lp-search input::-webkit-search-cancel-button, .lp-search input::-webkit-search-decoration { -webkit-appearance: none; display: none; }
+    .lp-search input:focus { outline: none; border-color: var(--black); }
+    .lp-search input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .lp-search-ico { position: absolute; left: 1.1rem; top: 50%; transform: translateY(-50%); width: 0.95rem; height: 0.95rem; color: var(--mid); pointer-events: none; }
+    .lp-search-clear {
+      position: absolute; right: 0.55rem; top: 50%; transform: translateY(-50%);
+      background: none; border: 0; font-size: 1.6rem; line-height: 1; color: var(--mid);
+      cursor: pointer; padding: 0 0.5rem; display: none;
+    }
+    .lp-search.has-value .lp-search-clear { display: block; }
+    .lp-search-clear:hover { color: var(--black); }
+    .lp-search-clear:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .lp-status {
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; line-height: 1.5;
+      color: var(--mid); margin: 0 0 1.75rem; min-height: 1.35rem;
+    }
+    .lp-status strong { color: var(--black); font-weight: 500; }
+    .lp-hint { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--light); margin: 0 0 2rem; }
+
+    /* No match panel */
+    .lp-nomatch { display: none; background: var(--white); border: 1px solid var(--border); border-left: 2px solid var(--gold); padding: 1.6rem 1.75rem; margin: 0 0 2.25rem; }
+    .lp-nomatch.is-on { display: block; }
+    .lp-nomatch h3 { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.55rem; line-height: 1.15; color: var(--black); margin: 0 0 0.5rem; }
+    .lp-nomatch p { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; line-height: 1.65; color: var(--mid); margin: 0 0 1.15rem; max-width: 64ch; }
+    .lp-nomatch .lp-request { margin: 0; }
+    .lp-nomatch.no-cta .lp-request { display: none; }
+    .lp-nomatch.no-cta p { margin-bottom: 0; }
+
     @media (max-width: 1000px) { .lp-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 800px) {
       .lp-hero-inner, .lp-band .lp-wrap { grid-template-columns: 1fr; gap: 2rem; }
@@ -276,7 +314,17 @@
 <section class="lp-section warm" id="cities">
   <div class="lp-wrap">
     <h2>Find your <em>city.</em></h2>
-    <p class="lp-lede">Pick your region to see its cities, or show all. Each card shows whether the photographer offers on-location sessions, studio sessions, or both. Studio cities also have a direct booking link.</p>
+    <p class="lp-lede">Search by city or state, or browse by region. Each card shows whether the photographer offers on-location sessions, studio sessions, or both. Studio cities also have a direct booking link.</p>
+
+    <div class="lp-search" id="lp-search">
+      <svg class="lp-search-ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <circle cx="8.5" cy="8.5" r="6"></circle><line x1="13" y1="13" x2="18" y2="18"></line>
+      </svg>
+      <label for="lp-q" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;">Search by city or state</label>
+      <input type="search" id="lp-q" autocomplete="off" spellcheck="false" placeholder="Search by city or state, e.g. Durham or North Carolina" />
+      <button type="button" class="lp-search-clear" id="lp-clear" aria-label="Clear search">&times;</button>
+    </div>
+    <p class="lp-status" id="lp-status" role="status" aria-live="polite"></p>
 
     <div class="lp-filter" role="group" aria-label="Filter by session type">
       <span>Show</span>
@@ -297,6 +345,11 @@
       <button class="lp-pill" data-region="canada">Canada</button>
       <button class="lp-pill" data-region="uk">United Kingdom</button>
       <button class="lp-pill" data-region="australia">Australia</button>
+    </div>
+    <div class="lp-nomatch" id="lp-nomatch">
+      <h3 id="lp-nomatch-title"></h3>
+      <p id="lp-nomatch-body"></p>
+      <button type="button" class="lp-request" data-market="Other / not listed" data-name="Delane R." data-label="Another city">Request a session</button>
     </div>
     <section class="lp-region" id="region-hq">
       <button class="lp-region-title" type="button" aria-expanded="true"><span>Headquarters</span><span class="lp-region-count"></span><span class="lp-region-chev" aria-hidden="true"></span></button>
@@ -858,19 +911,315 @@
   });
   updateCounts();
 
-  var buttons = document.querySelectorAll('.lp-filter button');
+  /* ============================ SEARCH ============================ */
+
+  // Two letter codes. US states, DC, PR, Canadian provinces, plus UK and AU.
+  var ABBR = {
+    AL:'Alabama', AK:'Alaska', AZ:'Arizona', AR:'Arkansas', CA:'California', CO:'Colorado',
+    CT:'Connecticut', DE:'Delaware', DC:'District of Columbia', FL:'Florida', GA:'Georgia',
+    HI:'Hawaii', ID:'Idaho', IL:'Illinois', IN:'Indiana', IA:'Iowa', KS:'Kansas', KY:'Kentucky',
+    LA:'Louisiana', ME:'Maine', MD:'Maryland', MA:'Massachusetts', MI:'Michigan', MN:'Minnesota',
+    MS:'Mississippi', MO:'Missouri', MT:'Montana', NE:'Nebraska', NV:'Nevada', NH:'New Hampshire',
+    NJ:'New Jersey', NM:'New Mexico', NY:'New York', NC:'North Carolina', ND:'North Dakota',
+    OH:'Ohio', OK:'Oklahoma', OR:'Oregon', PA:'Pennsylvania', RI:'Rhode Island',
+    SC:'South Carolina', SD:'South Dakota', TN:'Tennessee', TX:'Texas', UT:'Utah', VT:'Vermont',
+    VA:'Virginia', WA:'Washington', WV:'West Virginia', WI:'Wisconsin', WY:'Wyoming',
+    PR:'Puerto Rico',
+    AB:'Alberta', BC:'British Columbia', MB:'Manitoba', NB:'New Brunswick',
+    NL:'Newfoundland and Labrador', NS:'Nova Scotia', ON:'Ontario', PE:'Prince Edward Island',
+    QC:'Quebec', SK:'Saskatchewan',
+    UK:'United Kingdom', AU:'Australia'
+  };
+
+  var PLACES = ['Canada','United Kingdom','England','Great Britain','Scotland','Wales',
+    'Northern Ireland','Ireland','Australia','New South Wales','Queensland','South Australia',
+    'Western Australia','Tasmania','Australian Capital Territory','Northern Territory'];
+
+  // Typed terms that should fall through to a plain text search instead of a state lookup.
+  var AMBIGUOUS = { 'washington': 1, 'victoria': 1 };
+
+  // Per market: states it physically sits in, plus nearby places clients actually type.
+  var META = {
+    'Washington DC': { states:['District of Columbia','Virginia'], alias:['dc','washington dc','northern virginia','arlington','alexandria','fairfax','mclean','tysons','reston','herndon','vienna','falls church','bethesda','chevy chase','silver spring','rockville','gaithersburg','bowie','annapolis','national harbor','capitol hill','k street','dulles','woodbridge','manassas'] },
+    'Baltimore': { states:['Maryland'], alias:['towson','columbia md','annapolis','hunt valley','owings mills','harbor east','inner harbor'] },
+    'Philadelphia / New Jersey': { states:['Pennsylvania','New Jersey'], alias:['philly','center city','king of prussia','conshohocken','camden','cherry hill','princeton','newark nj','trenton','atlantic city','bala cynwyd','allentown','harrisburg','pittsburgh','wilmington de'] },
+    'Richmond VA': { states:['Virginia'], alias:['rva','norfolk','virginia beach','chesapeake','newport news','hampton roads','williamsburg','charlottesville','roanoke','glen allen','short pump'] },
+    'Boston': { states:['Massachusetts'], alias:['cambridge','somerville','back bay','seaport','waltham','burlington ma','worcester','providence','hartford','manchester nh','portsmouth nh','new england'] },
+    'New York': { states:['New York'], alias:['nyc','manhattan','brooklyn','queens','bronx','midtown','downtown','long island','westchester','white plains','stamford','greenwich ct','jersey city','hoboken','newark nj'] },
+    'Atlanta': { states:['Georgia'], alias:['atl','buckhead','midtown atlanta','alpharetta','marietta','sandy springs','decatur','savannah','augusta','athens ga','birmingham','montgomery','huntsville'] },
+    'Charlotte NC': { states:['North Carolina'], alias:['uptown charlotte','south end','ballantyne','concord','rock hill','gastonia','huntersville','greenville sc','columbia sc','spartanburg'] },
+    'Greensboro NC': { states:['North Carolina'], alias:['high point','burlington nc','triad','piedmont triad','kernersville'] },
+    'Jacksonville FL': { states:['Florida'], alias:['jax','st augustine','ponte vedra','orange park','amelia island','gainesville fl','tallahassee'] },
+    'Louisville': { states:['Kentucky'], alias:['lexington','frankfort','bowling green','jeffersonville','southern indiana','cincinnati'] },
+    'Memphis': { states:['Tennessee'], alias:['germantown tn','collierville','southaven','little rock','jackson ms','tupelo','jonesboro'] },
+    'Miami / Ft. Lauderdale': { states:['Florida'], alias:['miami','fort lauderdale','ft lauderdale','brickell','coral gables','doral','hialeah','aventura','boca raton','west palm beach','palm beach','delray beach','fort myers','naples fl','key west','san juan'] },
+    'Nashville': { states:['Tennessee'], alias:['brentwood','franklin tn','music row','the gulch','murfreesboro','knoxville','chattanooga','bowling green'] },
+    'New Orleans': { states:['Louisiana'], alias:['nola','metairie','baton rouge','lafayette la','cbd new orleans','french quarter','gulfport','biloxi','jackson ms','mobile'] },
+    'Orlando': { states:['Florida'], alias:['winter park','kissimmee','lake mary','maitland','altamonte springs','lakeland','daytona beach','melbourne fl','ocala'] },
+    'Raleigh NC': { states:['North Carolina'], alias:['durham','chapel hill','cary','apex','morrisville','the triangle','research triangle','rtp','wake forest','fayetteville nc','wilmington nc'] },
+    'Tampa': { states:['Florida'], alias:['st petersburg','saint petersburg','clearwater','brandon','sarasota','bradenton','lakeland','westshore','ybor city'] },
+    'Winston-Salem NC': { states:['North Carolina'], alias:['winston salem','clemmons','kernersville','triad','mount airy'] },
+    'Chicago': { states:['Illinois'], alias:['the loop','river north','evanston','naperville','oak brook','schaumburg','rosemont','skokie','milwaukee','madison wi','rockford','springfield il','st louis','saint louis'] },
+    'Columbus OH': { states:['Ohio'], alias:['dublin oh','worthington','westerville','short north','cincinnati','dayton','cleveland','akron','toledo','charleston wv','morgantown'] },
+    'Detroit': { states:['Michigan'], alias:['ann arbor','troy mi','southfield','birmingham mi','bloomfield hills','dearborn','grand rapids','lansing','toledo','windsor'] },
+    'Indianapolis': { states:['Indiana'], alias:['indy','carmel','fishers','zionsville','bloomington in','fort wayne','south bend','st louis','saint louis'] },
+    'Minneapolis': { states:['Minnesota'], alias:['st paul','saint paul','twin cities','bloomington mn','edina','minnetonka','eden prairie','duluth','fargo','sioux falls','des moines','omaha','madison wi'] },
+    'Austin': { states:['Texas'], alias:['round rock','cedar park','georgetown tx','san marcos','waco','domain austin'] },
+    'Dallas': { states:['Texas'], alias:['dfw','fort worth','plano','irving','las colinas','frisco','addison','richardson','arlington tx','mckinney','oklahoma city','tulsa','wichita','shreveport'] },
+    'Denver': { states:['Colorado'], alias:['dtc','boulder','colorado springs','fort collins','aurora co','lakewood','golden','salt lake city','provo','cheyenne','omaha','billings','albuquerque'] },
+    'Houston': { states:['Texas'], alias:['the woodlands','sugar land','katy','galleria houston','pearland','galveston','beaumont','corpus christi'] },
+    'Las Vegas': { states:['Nevada'], alias:['henderson','summerlin','the strip','north las vegas','reno','st george'] },
+    'Phoenix': { states:['Arizona'], alias:['scottsdale','tempe','mesa','chandler','gilbert','glendale az','peoria az','tucson','flagstaff','albuquerque','santa fe','las cruces'] },
+    'San Antonio': { states:['Texas'], alias:['alamo heights','new braunfels','san marcos','corpus christi','laredo','mcallen','austin'] },
+    'Los Angeles': { states:['California'], alias:['la','socal','southern california','beverly hills','santa monica','century city','culver city','pasadena','burbank','glendale ca','long beach','downtown la','el segundo','irvine','newport beach','orange county','anaheim','ventura','honolulu'] },
+    'Portland': { states:['Oregon'], alias:['pdx','beaverton','hillsboro','lake oswego','salem or','eugene','vancouver wa','bend'] },
+    'San Diego': { states:['California'], alias:['la jolla','carlsbad','del mar','encinitas','chula vista','oceanside','coronado'] },
+    'San Francisco': { states:['California'], alias:['sf','bay area','soma','financial district','oakland','berkeley','marin','san rafael','walnut creek','emeryville','sacramento','napa','santa rosa','reno'] },
+    'San Jose / Northern California': { states:['California'], alias:['silicon valley','palo alto','mountain view','santa clara','sunnyvale','cupertino','menlo park','redwood city','fremont','south bay','sacramento','fresno','monterey'] },
+    'Seattle': { states:['Washington'], alias:['bellevue','redmond','kirkland','tacoma','everett','olympia','spokane','boise','anchorage','south lake union'] },
+    'Montreal': { states:['Quebec','Canada'], alias:['quebec city','laval','longueuil','old montreal','halifax','moncton'] },
+    'Ottawa': { states:['Ontario','Canada'], alias:['gatineau','kanata','nepean','parliament hill'] },
+    'Toronto': { states:['Ontario','Canada'], alias:['gta','mississauga','markham','vaughan','brampton','hamilton','waterloo','kitchener','london ontario','winnipeg'] },
+    'Vancouver': { states:['British Columbia','Canada'], alias:['victoria bc','burnaby','richmond bc','surrey bc','whistler','kelowna','calgary','edmonton','banff'] },
+    'London': { states:['United Kingdom','England','Great Britain'], alias:['the city','canary wharf','westminster','mayfair','manchester','birmingham uk','leeds','bristol','edinburgh','glasgow','cardiff','belfast','dublin'] },
+    'Melbourne Australia': { states:['Victoria','Australia'], alias:['melbourne','melbourne cbd','south yarra','geelong','adelaide','hobart'] },
+    'Sydney Australia': { states:['New South Wales','Australia'], alias:['sydney','sydney cbd','north sydney','parramatta','newcastle nsw','canberra','brisbane','gold coast','perth'] }
+  };
+
+  // States and regions with no photographer based there, mapped to the closest markets.
+  var NEAREST = {
+    'alabama': ['Atlanta','Nashville'],
+    'alaska': ['Seattle'],
+    'arkansas': ['Memphis','Dallas'],
+    'connecticut': ['New York','Boston'],
+    'delaware': ['Philadelphia / New Jersey','Baltimore'],
+    'hawaii': ['Los Angeles','San Diego'],
+    'idaho': ['Seattle','Portland'],
+    'iowa': ['Minneapolis','Chicago'],
+    'kansas': ['Dallas','Denver'],
+    'maine': ['Boston'],
+    'mississippi': ['New Orleans','Memphis'],
+    'missouri': ['Chicago','Indianapolis','Memphis'],
+    'montana': ['Denver','Seattle'],
+    'nebraska': ['Denver','Minneapolis'],
+    'new hampshire': ['Boston'],
+    'new mexico': ['Phoenix','Denver'],
+    'north dakota': ['Minneapolis'],
+    'oklahoma': ['Dallas'],
+    'rhode island': ['Boston','New York'],
+    'south carolina': ['Charlotte NC','Atlanta'],
+    'south dakota': ['Minneapolis','Denver'],
+    'utah': ['Denver','Las Vegas'],
+    'vermont': ['Boston'],
+    'west virginia': ['Columbus OH','Washington DC'],
+    'wisconsin': ['Chicago','Minneapolis'],
+    'wyoming': ['Denver'],
+    'puerto rico': ['Miami / Ft. Lauderdale'],
+    'alberta': ['Vancouver','Toronto'],
+    'manitoba': ['Toronto','Minneapolis'],
+    'saskatchewan': ['Vancouver','Toronto'],
+    'nova scotia': ['Montreal','Toronto'],
+    'new brunswick': ['Montreal'],
+    'newfoundland and labrador': ['Montreal'],
+    'prince edward island': ['Montreal'],
+    'scotland': ['London'],
+    'wales': ['London'],
+    'northern ireland': ['London'],
+    'ireland': ['London'],
+    'queensland': ['Sydney Australia'],
+    'south australia': ['Melbourne Australia'],
+    'western australia': ['Melbourne Australia','Sydney Australia'],
+    'tasmania': ['Melbourne Australia'],
+    'australian capital territory': ['Sydney Australia'],
+    'northern territory': ['Sydney Australia']
+  };
+
+  function norm(s) {
+    return (s || '').toLowerCase().replace(/[.,'\u2019()\/]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  // Lookup of every recognised place name, normalised, to its display spelling.
+  var NAMES = {};
+  Object.keys(ABBR).forEach(function (k) { NAMES[norm(ABBR[k])] = ABBR[k]; });
+  PLACES.forEach(function (p) { NAMES[norm(p)] = p; });
+
+  var input = document.getElementById('lp-q');
+  var clearBtn = document.getElementById('lp-clear');
+  var searchWrap = document.getElementById('lp-search');
+  var status = document.getElementById('lp-status');
+  var panel = document.getElementById('lp-nomatch');
+  var panelTitle = document.getElementById('lp-nomatch-title');
+  var panelBody = document.getElementById('lp-nomatch-body');
+
   var cards = document.querySelectorAll('.lp-card');
+  var IDX = [];
+  cards.forEach(function (c) {
+    var market = c.dataset.market || '';
+    var m = META[market] || { states: [], alias: [] };
+    var region = c.closest('.lp-region');
+    var regionName = region ? region.querySelector('.lp-region-title span').textContent : '';
+    var cityEl = c.querySelector('.lp-city');
+    var bits = [cityEl ? cityEl.textContent : '', market, regionName]
+      .concat(m.states || [], m.alias || []);
+    IDX.push({
+      el: c,
+      market: market,
+      types: c.dataset.types || '',
+      states: (m.states || []).map(norm),
+      text: ' ' + norm(bits.join(' | ')) + ' ',
+      hit: true
+    });
+  });
+
+  var typeFilter = 'all';
+  var query = '';
+
+  function wordStart(text, q) {
+    return new RegExp('\\b' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).test(text);
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function marketList(keys) {
+    var names = keys.map(function (k) {
+      var d = null;
+      IDX.forEach(function (x) { if (x.market === k) d = x; });
+      var el = d ? d.el.querySelector('.lp-city') : null;
+      return el ? el.textContent : k;
+    });
+    if (names.length === 1) return names[0];
+    return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+  }
+
+  function showPanel(title, body, cta) {
+    panelTitle.textContent = title;
+    panelBody.textContent = body;
+    panel.classList.add('is-on');
+    panel.classList.toggle('no-cta', cta === false);
+  }
+
+  function hidePanel() { panel.classList.remove('is-on'); }
+
+  function apply(touchRegions) {
+    var q = norm(query);
+    var up = q.toUpperCase();
+    var searching = q.length >= 2;
+    var isAbbr = q.length === 2 && !!ABBR[up];
+    var stateKey = null;
+
+    if (isAbbr) stateKey = norm(ABBR[up]);
+    else if (q.length > 2 && NAMES[q] && !AMBIGUOUS[q]) stateKey = q;
+
+    IDX.forEach(function (d) {
+      if (!searching) d.hit = true;
+      else if (stateKey) d.hit = d.states.indexOf(stateKey) !== -1;
+      else if (q.length === 2) d.hit = wordStart(d.text, q);
+      else d.hit = d.text.indexOf(q) !== -1;
+    });
+
+    var rawHits = IDX.filter(function (d) { return d.hit; }).length;
+    var nearestKeys = null;
+
+    if (searching && rawHits === 0 && stateKey && NEAREST[stateKey]) {
+      nearestKeys = NEAREST[stateKey];
+      IDX.forEach(function (d) { d.hit = nearestKeys.indexOf(d.market) !== -1; });
+      rawHits = nearestKeys.length;
+    }
+
+    IDX.forEach(function (d) {
+      var vis = d.hit && (typeFilter === 'all' || d.types.indexOf(typeFilter) !== -1);
+      d.el.classList.toggle('is-hidden', !vis);
+    });
+
+    updateCounts();
+
+    var visible = IDX.filter(function (d) { return !d.el.classList.contains('is-hidden'); }).length;
+    var label = stateKey ? NAMES[stateKey] : '';
+    var noun = visible === 1 ? 'market' : 'markets';
+
+    if (!searching) {
+      status.textContent = '';
+      hidePanel();
+    } else if (nearestKeys) {
+      status.textContent = '';
+      showPanel(
+        'No photographer based in ' + label + ' yet.',
+        'The closest markets are ' + marketList(nearestKeys) + ', and our photographers travel. ' +
+        'If you would rather we bring someone on in ' + label + ', send the request and we will take it from there. ' +
+        'Several cities on this list are here because a client asked first.'
+      );
+    } else if (visible === 0 && rawHits > 0) {
+      status.textContent = '';
+      showPanel(
+        'Nothing matches that session type.',
+        'There is a market for \u201c' + query.trim() + '\u201d, but not for the session type selected above. ' +
+        'Switch the filter back to All cities to see it.',
+        false
+      );
+    } else if (visible === 0) {
+      status.textContent = '';
+      showPanel(
+        'No listing for \u201c' + query.trim() + '\u201d yet.',
+        'Try a state name, a two letter state code, or the nearest large city. ' +
+        'If your market genuinely is not on the list, send the request anyway. ' +
+        'In most cases we can bring on a photographer there or send our closest one.'
+      );
+    } else {
+      hidePanel();
+      status.innerHTML = '<strong>' + visible + ' ' + noun + '</strong>' +
+        (label ? ' in ' + esc(label) + '.' : ' matching \u201c' + esc(query.trim()) + '\u201d.');
+    }
+
+    if (touchRegions !== false) {
+      if (searching) {
+        regions.forEach(function (r) {
+          setOpen(r, r.querySelectorAll('.lp-card:not(.is-hidden)').length > 0);
+        });
+      } else {
+        regions.forEach(function (r) { setOpen(r, r.id === 'region-hq'); });
+      }
+    }
+  }
+
+  function clearSearch(touchRegions) {
+    query = '';
+    input.value = '';
+    searchWrap.classList.remove('has-value');
+    apply(touchRegions);
+  }
+
+  var debounce;
+  input.addEventListener('input', function () {
+    query = input.value;
+    searchWrap.classList.toggle('has-value', query.length > 0);
+    pills.forEach(function (p) { p.classList.remove('is-active'); });
+    clearTimeout(debounce);
+    debounce = setTimeout(function () { apply(); }, 120);
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { clearSearch(); input.blur(); }
+  });
+  clearBtn.addEventListener('click', function () { clearSearch(); input.focus(); });
+
+  // Region pills clear the search so the two controls never fight each other.
+  pills.forEach(function (pill) {
+    pill.addEventListener('click', function () { clearSearch(false); }, true);
+  });
+
+  /* ---- Session type filter, combined with the search ---- */
+  var buttons = document.querySelectorAll('.lp-filter button');
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
       buttons.forEach(function (b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
-      var f = btn.dataset.filter;
-      cards.forEach(function (c) {
-        c.classList.toggle('is-hidden', f !== 'all' && c.dataset.types.indexOf(f) === -1);
-      });
-      updateCounts();
+      typeFilter = btn.dataset.filter;
+      apply(norm(query).length >= 2);
     });
   });
+
+  apply(false);
 })();
 </script>
 <script>document.getElementById('lp-updated').textContent = new Date(document.lastModified).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});</script>
