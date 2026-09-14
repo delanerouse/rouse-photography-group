@@ -22,6 +22,7 @@
     .hp-field { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
     #contact-form select { width:100%; }
   </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="canonical" href="https://rousephotographygroup.com/contact" />
   <script type="application/ld+json">
   {
@@ -172,6 +173,7 @@
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
           </div>
 
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAE0gteVT62X9FoHp" data-theme="light" style="margin-bottom:1rem;"></div>
           <p class="form-consent">This form collects information we will use to respond to your inquiry. We will not share or sell your personal information.</p>
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message</button>
           <p id="form-status" role="status" aria-live="polite" style="margin-top:1rem;font-size:0.9rem;display:none;"></p>
@@ -254,7 +256,8 @@
       company: form.company.value.trim(),
       topic: form.topic.value,
       message: form.message.value.trim(),
-      website: form.website.value
+      website: form.website.value,
+      turnstileToken: (window.turnstile && typeof turnstile.getResponse === "function") ? (turnstile.getResponse() || "") : ""
     };
 
     button.disabled = true;

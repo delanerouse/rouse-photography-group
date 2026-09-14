@@ -1,6 +1,8 @@
 // POST /api/contact
 // Receives the contact form and creates a record in the Inquiries table.
-// Requires an encrypted environment variable in Cloudflare Pages: AIRTABLE_TOKEN
+// Requires encrypted environment variables in Cloudflare Pages:
+//   AIRTABLE_TOKEN    (existing)
+//   TURNSTILE_SECRET  (new — from the Turnstile widget in the Cloudflare dashboard)
 
 import { checkSpam } from "./_spam-filter.js";
 
@@ -23,6 +25,44 @@ const json = (status, body) =>
 const clean = (v, max) =>
   typeof v === "string" ? v.trim().slice(0, max) : "";
 
+/**
+ * Ask Cloudflare whether this submission's Turnstile token is valid.
+ *
+ * Deliberate design choice: if TURNSTILE_SECRET is not configured, this
+ * returns true and lets the submission through. A missing env var should
+ * never take the contact form offline — that would cost real inquiries.
+ * A token that IS checked and fails is rejected.
+ */
+async function verifyTurnstile(token, secret, ip) {
+  if (!secret) {
+    console.warn("TURNSTILE_SECRET is not set — skipping bot verification");
+    return true;
+  }
+  if (!token) return false;
+
+  try {
+    const body = new FormData();
+    body.append("secret", secret);
+    body.append("response", token);
+    if (ip) body.append("remoteip", ip);
+
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      { method: "POST", body }
+    );
+    const out = await res.json();
+    if (!out.success) {
+      console.warn("Turnstile rejected a submission", JSON.stringify(out["error-codes"] || []));
+    }
+    return out.success === true;
+  } catch (err) {
+    // Cloudflare unreachable. Fail open rather than lose the inquiry —
+    // the honeypot and the content filter still apply downstream.
+    console.error("Turnstile verification call failed", err);
+    return true;
+  }
+}
+
 export async function onRequestPost({ request, env }) {
   if (!env.AIRTABLE_TOKEN) {
     console.error("AIRTABLE_TOKEN is not set");
@@ -44,6 +84,16 @@ export async function onRequestPost({ request, env }) {
   // Honeypot: real people leave this empty. Bots fill it.
   // Return success so the bot does not learn it was caught.
   if (clean(data.website, 200)) return json(200, { ok: true });
+
+  // Turnstile: proves a real browser submitted this.
+  const passed = await verifyTurnstile(
+    clean(data.turnstileToken, 4000),
+    env.TURNSTILE_SECRET,
+    request.headers.get("CF-Connecting-IP")
+  );
+  if (!passed) {
+    return json(403, { ok: false, error: "verification_failed" });
+  }
 
   const name = clean(data.name, 200);
   const email = clean(data.email, 200);
