@@ -2,6 +2,8 @@
 // Receives the contact form and creates a record in the Inquiries table.
 // Requires an encrypted environment variable in Cloudflare Pages: AIRTABLE_TOKEN
 
+import { checkSpam } from "./_spam-filter.js";
+
 const BASE_ID = "appxz89GW103YI3J8";
 const TABLE_ID = "tbl81SAzXnIcfzPTh";
 
@@ -57,10 +59,19 @@ export async function onRequestPost({ request, env }) {
     return json(400, { ok: false, error: "bad_email" });
   }
 
+  // Spam check. Runs on the cleaned values, not the raw payload.
+  // Caught submissions are still filed, with Status "Spam", so nothing
+  // disappears silently and false positives stay auditable.
+  const verdict = checkSpam({ name, email, phone, company, message, website: "" });
+  if (verdict.spam) {
+    console.log("Spam caught", verdict.score, verdict.reasons.join("; "), email);
+  }
+
   const fields = {
     Name: name,
     Email: email,
     Message: message,
+    Status: verdict.spam ? "Spam" : "New",
   };
   if (phone) fields["Phone"] = phone;
   if (company) fields["Company / Organization"] = company;
