@@ -16,6 +16,11 @@
  * Then branch on verdict.spam before you send the Jessie email.
  * Still write the Airtable record either way, with Status = "Spam",
  * so nothing disappears silently and you can audit the catches.
+ *
+ * v2 (Sept 2026): short-message penalty lowered from 3 to 2 so a brief
+ * but legitimate inquiry ("Please call me") no longer trips the threshold
+ * on its own. Short still contributes, and still lands as spam when
+ * combined with any other signal.
  */
 
 // ---------------------------------------------------------------------------
@@ -25,7 +30,7 @@
 // A submission is spam at or above this score.
 const SPAM_THRESHOLD = 3;
 
-// Shorter than this (after trimming) is not a real inquiry.
+// Shorter than this (after trimming) is a weak spam signal, not proof.
 const MIN_MESSAGE_LENGTH = 20;
 
 // Instant spam. No headshot client has ever asked about these.
@@ -107,6 +112,7 @@ const BLOCKED_DOMAINS = [
   'toptalentvas.com',
   'virtualhandsupport.com',
   'retouchingzone.com',
+  'vas4hire.com',
 ];
 
 // ---------------------------------------------------------------------------
@@ -143,13 +149,15 @@ export function checkSpam(payload) {
     return { spam: true, score: 99, reasons: ['blocked domain: ' + domain] };
   }
 
-  // 3. Empty or near-empty message. Caught 3 of the 4 known spams on its own.
+  // 3. Empty or near-empty message. Worth 2, not 3 — on its own it is not
+  //    enough to condemn a submission, since real people do write "call me".
   if (message.length < MIN_MESSAGE_LENGTH) {
-    score += 3;
+    score += 2;
     reasons.push('message under ' + MIN_MESSAGE_LENGTH + ' characters');
   }
 
   // 4. Message is just a phone number or a string of digits.
+  //    Still worth 3 on its own. This is what caught the VA submissions.
   if (message && /^[\d\s().+\-]+$/.test(message)) {
     score += 3;
     reasons.push('message is digits only');
