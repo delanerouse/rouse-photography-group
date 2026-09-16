@@ -322,6 +322,22 @@
       .ca-sched-frame iframe { min-height: 1100px; }
       .ca-section { padding: 4rem 5vw; }
     }
+    .ca-path { position: relative; }
+    .ca-path-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--gold);
+      background: rgba(184,150,90,0.08);
+      border: 1px solid rgba(184,150,90,0.25);
+      padding: 2px 8px;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -413,10 +429,12 @@
     <div class="ca-paths" role="tablist" aria-label="Where the session takes place">
       <button class="ca-path is-active" role="tab" aria-selected="true" aria-controls="ca-panel-studio" id="ca-tab-studio" data-path="studio">
         <span class="ca-path-title">Come to our studio</span>
-        <span class="ca-path-desc">4501 Ford Avenue, Suite 107, Alexandria. Best for one to three people who can step out for an hour.</span>
+        <span class="ca-path-badge">$</span>
+        <span class="ca-path-desc">4501 Ford Avenue, Suite 107, Alexandria. Best for one to three people who can step out for an hour. Early morning appointments available.</span>
       </button>
       <button class="ca-path" role="tab" aria-selected="false" aria-controls="ca-panel-onsite" id="ca-tab-onsite" data-path="onsite">
         <span class="ca-path-title">We come to you</span>
+        <span class="ca-path-badge">$$</span>
         <span class="ca-path-desc">We set up in a conference room and photograph your team without anyone leaving the building. <u>On-site sessions are billed at a higher rate than studio sessions.</u> <strong>By selecting this option, you confirm that your organization has authorized the associated cost.</strong></span>
       </button>
     </div>
