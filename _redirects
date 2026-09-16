@@ -32,4 +32,5 @@
 /home/*  /  301
 /background-best-corporate-headshot/contact.html  /contact  301
 /background-best-corporate-headshot/  /  301
-/background-best-corporate-headshot  /
+/background-best-corporate-headshot  /  301
+/background-best-corporate-headshot/*  /  301
