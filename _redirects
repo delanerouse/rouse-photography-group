@@ -26,3 +26,10 @@
 /about/  /about  301
 /contact/  /contact  301
 /for-companies/  /for-companies  301
+/home/index.html  /  301
+/home/  /  301
+/home  /  301
+/home/*  /  301
+/background-best-corporate-headshot/contact.html  /contact  301
+/background-best-corporate-headshot/  /  301
+/background-best-corporate-headshot  /
