@@ -260,6 +260,13 @@
       turnstileToken: (window.turnstile && typeof turnstile.getResponse === "function") ? (turnstile.getResponse() || "") : ""
     };
 
+    // Turnstile has not finished its check yet (or the script is still loading).
+    // Sending now would be rejected, so ask the visitor to wait a beat.
+    if (window.turnstile && !payload.turnstileToken) {
+      show('One moment, the security check is still finishing. Please press Send again in a few seconds.', false);
+      return;
+    }
+
     button.disabled = true;
     var original = button.textContent;
     button.textContent = 'Sending...';
@@ -280,12 +287,21 @@
             '<p style="color:var(--mid);font-size:0.9rem;margin-top:1rem;">If it is time sensitive, call us at <a href="tel:2022573918" style="color:var(--gold);">202.257.3918</a>.</p>';
           return;
         }
-        throw new Error('failed');
+        var err = new Error('failed');
+        err.code = data && data.error;
+        throw err;
       })
-      .catch(function () {
+      .catch(function (err) {
         button.disabled = false;
         button.textContent = original;
-        show('Something went wrong sending that. Please call us at 202.257.3918 or try again in a moment.', false);
+        // Turnstile tokens are single use. Without a reset, a retry resends the
+        // spent token and fails again, so get a fresh one after any failure.
+        try { if (window.turnstile) turnstile.reset(); } catch (e) {}
+        if (err && err.code === 'verification_failed') {
+          show('The security check timed out. Please wait a few seconds and press Send again.', false);
+        } else {
+          show('Something went wrong sending that. Please call us at 202.257.3918 or try again in a moment.', false);
+        }
       });
   });
 })();
