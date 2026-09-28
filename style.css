@@ -44,6 +44,12 @@ h1, h2, h3, h4 {
   margin-bottom: 1rem;
 }
 
+/* Keyword H1s styled as small kickers; the large brand line under them is h2.display */
+h1.eyebrow, h1.fi-kicker, h1.g-kicker {
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.65;
+}
+
 .section-title {
   font-size: clamp(2.2rem, 4vw, 3.4rem);
   letter-spacing: -0.01em;
@@ -585,7 +591,8 @@ footer {
   border-bottom: 1px solid var(--border);
 }
 
-.page-hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+.page-hero h1, .page-hero .display { font-size: clamp(2.5rem, 5vw, 4rem); }
+.page-hero h1.eyebrow { font-size: 0.68rem; }
 
 /* FOR COMPANIES PAGE */
 .services-full {
